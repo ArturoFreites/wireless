@@ -1,4 +1,6 @@
-export const NAVLINKS = [
+import { NavLink } from "@/types/navbar";
+
+export const NAVLINKS:NavLink[] = [
     {
         id: 1,
         name: "iPhone",
