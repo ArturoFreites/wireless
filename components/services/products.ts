@@ -73,36 +73,6 @@ export const PRODUCTS: Product[] = [
             { id: 3, name: "iPhone 13", src: "https://www.wireless.ar/iphone_13_web.jpg" },
             { id: 4, name: "iPhone 13", src: "https://www.wireless.ar/iphone_13_web.jpg" },
         ]
-    },
-    {
-        id: 6,
-        name: "iPhone 11",
-        description: "Un clásico moderno.",
-        type: "iphone",
-        subcategory: "iPhone 11",
-        amout: 750,
-        image: "https://www.wireless.ar/iphone_11_web.jpg",
-        images: [
-            { id: 1, name: "iPhone 11", src: "https://www.wireless.ar/iphone_11_web.jpg" },
-            { id: 2, name: "iPhone 11", src: "https://www.wireless.ar/iphone_11_web.jpg" },
-            { id: 3, name: "iPhone 11", src: "https://www.wireless.ar/iphone_11_web.jpg" },
-            { id: 4, name: "iPhone 11", src: "https://www.wireless.ar/iphone_11_web.jpg" },
-        ]
-    },
-    {
-        id: 7,
-        name: "iPhone 13 Usado",
-        description: "Reacondicionado y en excelente estado.",
-        type: "iphone",
-        subcategory: "Usados",
-        amout: 620,
-        image: "https://www.wireless.ar/iphone_13_usado_web.jpg",
-        images: [
-            { id: 1, name: "iPhone 13 Usado", src: "https://www.wireless.ar/iphone_13_usado_web.jpg" },
-            { id: 2, name: "iPhone 13 Usado", src: "https://www.wireless.ar/iphone_13_usado_web.jpg" },
-            { id: 3, name: "iPhone 13 Usado", src: "https://www.wireless.ar/iphone_13_usado_web.jpg" },
-            { id: 4, name: "iPhone 13 Usado", src: "https://www.wireless.ar/iphone_13_usado_web.jpg" },
-        ]
     }
 ]
 
