@@ -1,8 +1,9 @@
+import { ShoppingBag } from "lucide-react";
+
 function Store() {
     return (
-        <div className="hidden md:flex w-1/8 h-full justify-center items-center gap-10">
-            <p>Store</p>
-            <p>Buscador</p>
+        <div className="ml-2">
+            <ShoppingBag className="cursor-pointer hover:fill-neutral-500 duration-300" width={18} fill="#11111"/>
         </div>
     );
 }

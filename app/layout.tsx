@@ -24,7 +24,7 @@ export default function RootLayout({
         className={`${montserrat.className}`}
       >
         <NavBar />
-        <main className="pt-22">
+        <main className="pt-22 bg-white">
           {children}
         </main>
         <Footer/>

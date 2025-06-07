@@ -1,13 +1,11 @@
 'use client'
 
-import { motion, useAnimation } from 'framer-motion'
-import { useInView } from 'framer-motion'
+import Link from 'next/link'
+import { motion, useAnimation, useInView } from 'framer-motion'
 import { useEffect, useRef } from 'react'
 import { Product } from '../services/products'
 
-type Props = {
-    product: Product
-}
+type Props = { product: Product }
 
 export default function CardContent({ product }: Props) {
     const ref = useRef(null)
@@ -15,9 +13,7 @@ export default function CardContent({ product }: Props) {
     const controls = useAnimation()
 
     useEffect(() => {
-        if (isInView) {
-            controls.start({ opacity: 1, y: 0 })
-        }
+        if (isInView) controls.start({ opacity: 1, y: 0 })
     }, [isInView, controls])
 
     return (
@@ -28,21 +24,29 @@ export default function CardContent({ product }: Props) {
             transition={{ duration: 0.6, ease: 'easeOut' }}
             className="mx-14 my-4"
         >
-            <div>
-                <img src={product.image} alt={product.name} className="w-full h-auto hover:scale-95 duration-200" />
-            </div>
+            {/* 👉 Link que envuelve la imagen */}
+            <Link href={`/product/${product.id}`}>
+                {/* Usa <Image> si quieres optimización automática */}
+                <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-auto hover:scale-95 duration-200 cursor-pointer"
+                />
+            </Link>
+
             <div className="mb-4">
                 <h2 className="font-bold">{product.name}</h2>
                 <h3 className="text-xs">{product.description}</h3>
             </div>
-            <div className="flex items-center justify-between">
+
+            <Link href="https://wa.me/17164932230" target="_blank" rel="noopener noreferrer" className="flex items-center justify-between">
                 <p className="font-bold text-xl">${product.amout}</p>
                 <button className="bg-neutral-900 text-white text-xs px-4 py-2 rounded font-semibold
-                    hover:bg-neutral-600 cursor-pointer duration-300
-                ">
+                            hover:bg-neutral-600 duration-300 ml-3">
+                                
                     Consultar
                 </button>
-            </div>
+            </Link>
         </motion.div>
     )
 }
