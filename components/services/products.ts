@@ -2,7 +2,7 @@ export const PRODUCTS: Product[] = [
     {
         id: 1,
         name: "iPhone 16 Pro Max",
-        description: "El iPhone en su máxima expresión.",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus faucibus a libero quis semper. Nulla eget urna vel felis tempor maximus nec sed lorem. Nam ut commodo dui, sed tristique quam. Duis venenatis eros in eros interdum blandit quis vitae mauris. Duis ultricies auctor laoreet. Donec scelerisque varius diam sit amet ullamcorper. Vivamus tristique, nibh vitae dapibus aliquam, purus elit dignissim orci, quis aliquam ex lorem scelerisque quam.",
         type: "iphone",
         subcategory: "iPhone 16",
         amout: 1250,
@@ -32,7 +32,7 @@ export const PRODUCTS: Product[] = [
     {
         id: 3,
         name: "iPhone 15",
-        description: "El iPhone en su máxima expresión.",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus faucibus a libero quis semper. Nulla eget urna vel felis tempor maximus nec sed lorem. Nam ut commodo dui, sed tristique quam. Duis venenatis eros in eros interdum blandit quis vitae mauris. Duis ultricies auctor laoreet. Donec scelerisque varius diam sit amet ullamcorper. Vivamus tristique, nibh vitae dapibus aliquam, purus elit dignissim orci, quis aliquam ex lorem scelerisque quam.",
         type: "iphone",
         subcategory: "iPhone 15",
         amout: 1080,

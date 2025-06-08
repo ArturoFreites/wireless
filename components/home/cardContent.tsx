@@ -22,7 +22,7 @@ export default function CardContent({ product }: Props) {
             initial={{ opacity: 0, y: 50 }}
             animate={controls}
             transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="mx-14 my-4"
+            className="mx-10 my-4"
         >
             {/* 👉 Link que envuelve la imagen */}
             <Link href={`/product/${product.id}`}>
@@ -34,9 +34,9 @@ export default function CardContent({ product }: Props) {
                 />
             </Link>
 
-            <div className="mb-4">
-                <h2 className="font-bold">{product.name}</h2>
-                <h3 className="text-xs">{product.description}</h3>
+            <div className="mb-4 w-full">
+                <h2 className="font-bold w-full">{product.name}</h2>
+                <h3 className="text-xs truncate">{product.description}</h3>
             </div>
 
             <Link href="https://wa.me/17164932230" target="_blank" rel="noopener noreferrer" className="flex items-center justify-between">
