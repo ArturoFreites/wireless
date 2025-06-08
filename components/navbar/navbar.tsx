@@ -4,7 +4,6 @@ import NavBarLinks from "./navbarLinks";
 import { NAVLINKS } from "../services/navbar";
 import Store from "./store";
 import Advertisements from "../home/advertisements";
-import Searcher from "./searcher";
 import { MenuIcon } from "lucide-react";
 
 function NavBar() {
