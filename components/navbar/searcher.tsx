@@ -13,7 +13,7 @@ function Searcher() {
             "/>
             <input className={`
             ${!open && "hidden"} duration-300
-            bg-neutral-300 rounded-md ml-2 pl-2 text-neutral-900 text-xs
+            bg-neutral-200 rounded-md ml-2 pl-2 text-neutral-900 text-xs
             `}
             >
             </input>

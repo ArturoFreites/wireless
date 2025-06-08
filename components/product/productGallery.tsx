@@ -28,7 +28,7 @@ export default function ProductGallery({ images, description, amount }: Props) {
                         </button>
                     ))}
                 </div>
-                <div className='flex m-6'>
+                <div className='flex mx-6'>
                     <img
                         src={mainImage}
                         alt="Imagen principal"
