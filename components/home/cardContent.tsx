@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { motion, useAnimation, useInView } from 'framer-motion'
 import { useEffect, useRef } from 'react'
 import { Product } from '../services/products'
+import WhatsappIcon from '../icon/whatsappIcon'
 
 type Props = { product: Product }
 
@@ -22,7 +23,7 @@ export default function CardContent({ product }: Props) {
             initial={{ opacity: 0, y: 50 }}
             animate={controls}
             transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="mx-10 my-4"
+            className="mx-10 my-10 md:my-4"
         >
             {/* 👉 Link que envuelve la imagen */}
             <Link href={`/product/${product.id}`}>
@@ -39,12 +40,15 @@ export default function CardContent({ product }: Props) {
                 <h3 className="text-xs truncate">{product.description}</h3>
             </div>
 
-            <Link href="https://wa.me/17164932230" target="_blank" rel="noopener noreferrer" className="flex items-center justify-between">
+            <Link href="https://wa.me/17164932230" target="_blank" rel="noopener noreferrer" 
+                className="flex w-full items-center justify-center md:justify-between " >
+
                 <p className="font-bold text-xl">${product.amout}</p>
-                <button className="bg-neutral-900 text-white text-xs px-4 py-2 rounded font-semibold
-                            hover:bg-neutral-600 duration-300 ml-3">
-                                
-                    Consultar
+                
+                <button className="flex items-center bg-neutral-900 text-white text-xs px-4 py-2 rounded font-semibold
+                            hover:bg-neutral-600 cursor-pointer duration-300 ml-3">
+                    <WhatsappIcon/>
+                    <p className='ml-1'>Consultar</p>
                 </button>
             </Link>
         </motion.div>

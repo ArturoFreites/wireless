@@ -33,7 +33,7 @@ function ContentGroup() {
                 <p className="text-sm font-medium">{NAVLINKS[0].description}</p>
             </motion.div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-11/12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:gap-6 w-11/12">
                 {PRODUCTS.map((product) => (
                     <CardContent key={product.id} product={product} />
                 ))}

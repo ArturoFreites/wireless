@@ -1,12 +1,14 @@
+
 import Image from "next/image";
 import Link from "next/link";
 import NavBarLinks from "./navbarLinks";
 import { NAVLINKS } from "../services/navbar";
 import Store from "./store";
 import Advertisements from "../home/advertisements";
-import { MenuIcon } from "lucide-react";
+import NavbarMobile from "./navbarMobile";
 
 function NavBar() {
+
     return (
         <nav className="fixed top-0 w-full z-50 shadow-md">
             <Advertisements />
@@ -23,11 +25,9 @@ function NavBar() {
                             Wireless.Ar
                         </p>
                     </Link>
-                    <div className="text-neutral-900 w-1/6 md:hidden">
-                        <MenuIcon/>
-                    </div>
+                    <NavbarMobile/>
                 </div>
-                <NavBarLinks links={NAVLINKS} />
+                <NavBarLinks links={NAVLINKS} hidden={true} />
                 <div className="hidden md:flex justify-center items-center p-4">
                     <Store />
                 </div>

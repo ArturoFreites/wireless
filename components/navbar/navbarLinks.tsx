@@ -2,15 +2,20 @@ import { NavLink } from "@/types/navbar"
 
 type Props = {
     links: NavLink[]
+    hidden:boolean
 }
 
-function NavBarLinks({ links }: Props) {
+function NavBarLinks({ links, hidden}: Props) {
     return (
-        <div className="hidden md:flex justify-center items-center text-neutral-600 w-6/8">
+        <div className={` ${hidden && "hidden"} 
+            text-neutral-600  w-full mt-2
+            md:flex md:justify-center md:items-center md:w-6/8 md:my-0
+        
+        `}>
             {links.map((link) => (
                 <p
                     key={link.id}
-                    className="text-xs p-2 font-semibold cursor-pointer hover:text-neutral-950 duration-300"
+                    className=" text-center text-xs p-2 font-semibold cursor-pointer hover:text-neutral-950 duration-300"
                 >
                     {link.name}
                 </p>
