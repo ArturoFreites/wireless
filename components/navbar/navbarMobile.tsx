@@ -1,7 +1,7 @@
 // components/NavbarMobile.tsx
 "use client"
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MenuIcon, X } from "lucide-react";
 import NavBarLinks from "./navbarLinks";
 import { NAVLINKS } from "../services/navbar";
@@ -10,7 +10,15 @@ import Image from "next/image";
 import Store from "./store";
 
 export default function NavbarMobile() {
+
     const [mobileOpen, setMobileOpen] = useState(false);
+
+    useEffect(() => {
+        document.body.style.overflow = mobileOpen ? 'hidden' : 'auto';
+        return () => {
+            document.body.style.overflow = 'auto';
+        };
+    }, [mobileOpen]);
 
     return (
         <>
@@ -43,8 +51,8 @@ export default function NavbarMobile() {
                         <Image
                             src={"/img/wireless.webp"}
                             alt="wireless"
-                            width={45}
-                            height={45}
+                            width={55}
+                            height={55}
                         />
                         <p className="pl-1 text-sm text-neutral-700">
                             Wireless.Ar

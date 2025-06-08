@@ -15,7 +15,7 @@ function NavBarLinks({ links, hidden}: Props) {
             {links.map((link) => (
                 <p
                     key={link.id}
-                    className=" text-center text-xs p-2 font-semibold cursor-pointer hover:text-neutral-950 duration-300"
+                    className=" text-center md:text-xs p-2 font-semibold cursor-pointer hover:text-neutral-950 duration-300"
                 >
                     {link.name}
                 </p>
