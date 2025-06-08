@@ -28,13 +28,13 @@ export default function ProductGallery({ images, description, amount }: Props) {
                         </button>
                     ))}
                 </div>
-                <div className='flex'>
+                <div className='flex m-6'>
                     <img
                         src={mainImage}
                         alt="Imagen principal"
                         width={250}
                         height={250}
-                        className="rounded-lg shadow-lg md:w-80"
+                        className="md:w-80"
                     />
                 </div>
             </div>
