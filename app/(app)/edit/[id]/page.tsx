@@ -1,6 +1,6 @@
 import NavDashboard from "@/components/dashboard/navDashboard";
 import Input from "@/components/Input";
-import TextArea from "@/components/textArea";
+import TextArea from "@/components/TextArea";
 
 function EditPage() {
     return (
