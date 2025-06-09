@@ -1,11 +1,22 @@
+import Image from "next/image";
 import Link from "next/link";
 
 function NotFound() {
     return (
-        <section className="h-screen mt-20 text-neutral-950
-            flex justify-center
+        <section className="h-screen text-neutral-950
+            flex justify-center items-center bg-white
         ">
-            <div className="h-full">
+            <div className="flex flex-col items-center justify-center">
+                <div className="flex justify-center items-center">
+                    <Image
+                        className=""
+                        src={"/img/wireless.webp"}
+                        alt="wireless"
+                        width={80}
+                        height={80}
+                    />
+                    <p className="font-semibold">Wireless.Ar</p>
+                </div>
                 <h1 className="pt-14
                     font-black text-2xl
                 ">

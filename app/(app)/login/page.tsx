@@ -1,3 +1,4 @@
+import Input from "@/components/Input";
 import Image from "next/image";
 
 function Page() {
@@ -5,31 +6,35 @@ function Page() {
         <section className="w-screen h-screen
             flex flex-col md:flex-row
         ">
-            <div className="bg-neutral-200 text-neutral-700 
+            <div className="bg-neutral-100 text-neutral-700 
                 md:w-1/3 h-full
                 flex flex-col justify-center items-center
                 ">
-                <Image
-                    className="md:hidden"
-                    src={"/img/wireless.webp"}
-                    alt="wireless"
-                    width={50}
-                    height={50}
+                <div className="md:hidden flex
+                    mb-6
+                ">
+                    <Image
+                        className=""
+                        src={"/img/wireless.webp"}
+                        alt="wireless"
+                        width={50}
+                        height={50}
+                    />
+                    <div className="ml-1">
+                        <h2 className="font-semibold">Wireless.Ar</h2>
+                        <p className="text-sm">Administración</p>
+                    </div>
+
+                </div>
+                <Input
+                    label="Email" placeHolder="Ingrese email" type="text"
                 />
-                <h1 className="mb-6 font-semibold">Ingreso</h1>
-                <div className="my-2">
-                    <p className="text-sm mb-1">Email</p>
-                    <input
-                        className="bg-white py-1 px-2 text-sm rounded-md"
-                        placeholder="Ingrese email"></input>
-                </div>
-                <div className="my-2">
-                    <p className="text-sm mb-1">Contraseña</p>
-                    <input
-                        className="bg-white py-1 px-2 text-sm rounded-md"
-                        placeholder="Ingrese email"></input>
-                </div>
-                <button className="mt-6 bg-neutral-800 px-4 py-2 rounded-md text-xs font-semibold text-white">
+                <Input
+                    label="Contraseña" placeHolder="Ingrese contraseña" type="password"
+                />
+                <button className="mt-6 bg-neutral-800 px-4 py-2 rounded-md text-xs font-semibold text-white
+                    hover:bg-neutral-500 duration-300 cursor-pointer
+                ">
                     Ingresar
                 </button>
             </div>
