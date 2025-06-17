@@ -3,10 +3,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useGroupedCategories } from '@/hooks/useGroupedCategories';
-import { Store } from 'lucide-react';
 import Advertisements from '../Home/Advertisements';
 import NavbarMobile from  "@/components/Navbar/NavbarMobile";
-import NavBarLinks from  "@/components/Navbar/NavbarLinks";;
+import NavBarLinks from  "@/components/Navbar/NavbarLinks";import Store from './Store';
+;
 
 function NavBar() {
     const { data: categories, loading, error } = useGroupedCategories();

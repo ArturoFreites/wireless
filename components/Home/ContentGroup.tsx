@@ -26,7 +26,7 @@ function ContentGroup({ products, title}: Props) {
                 initial={{ opacity: 0, y: 30 }}
                 animate={controls}
                 transition={{ duration: 0.6, ease: "easeOut" }}
-                className="mb-16"
+                className="mb-2"
             >
                 <div className="w-fit mb-2">
                     <h2 className="text-2xl font-bold">{title}</h2>

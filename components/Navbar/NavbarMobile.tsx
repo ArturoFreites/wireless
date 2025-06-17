@@ -1,11 +1,12 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { MenuIcon, Store, X } from 'lucide-react';
+import { MenuIcon, X } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { NavLink } from '@/types/navbar';
 import NavbarLinks from "@/components/Navbar/NavbarLinks";
+import Store from './Store';
 
 
 type Props = {
@@ -37,8 +38,8 @@ export default function NavbarMobile({ links, hidden, loading }: Props) {
 
             <div
                 className={`fixed inset-0 bg-white z-60 transform transition-transform duration-300 ease-in-out ${mobileOpen
-                        ? 'translate-x-0 opacity-100'
-                        : 'translate-x-full opacity-0 pointer-events-none'
+                    ? 'translate-x-0 opacity-100'
+                    : 'translate-x-full opacity-0 pointer-events-none'
                     }`}
             >
                 <div className="flex justify-end p-4">
@@ -66,9 +67,18 @@ export default function NavbarMobile({ links, hidden, loading }: Props) {
                     </Link>
                 </div>
 
-                <div className="flex-grow flex flex-col items-center justify-center space-y-6">
+                <div
+                    className="flex-grow flex flex-col items-center justify-center space-y-6"
+                    onClick={(e) => {
+                        const target = e.target as HTMLElement;
+                        if (target.closest('a[href="/cart"]')) {
+                            setMobileOpen(false);
+                        }
+                    }}
+                >
                     <Store />
                 </div>
+
 
                 {loading ? (
                     <div className="animate-pulse h-4 w-32 bg-gray-200 rounded" />

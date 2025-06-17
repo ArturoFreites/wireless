@@ -6,6 +6,7 @@ import { useEffect, useRef } from 'react'
 import WhatsappIcon from '../Icon/WhatsappIcon'
 import { ProductWithRelations } from '@/types/ProductWithRelations'
 import { BatteryCharging, ShoppingBagIcon } from 'lucide-react'
+import { useCartStore } from '@/store/cart'
 
 type Props = { product: ProductWithRelations }
 
@@ -13,6 +14,21 @@ export default function CardContent({ product }: Props) {
     const ref = useRef(null)
     const isInView = useInView(ref, { once: true, margin: '0px 0px -100px 0px' })
     const controls = useAnimation()
+
+    const cartItems = useCartStore((state) => state.items)
+    const addToCart = useCartStore((state) => state.addToCart)
+    const removeFromCart = useCartStore((state) => state.removeFromCart)
+
+    const isUsedInCart = product.is_used && cartItems.some((item) => item.id === product.id)
+
+    const handleClick = () => {
+        if (isUsedInCart) {
+            removeFromCart(product.id)
+        } else {
+            addToCart(product)
+        }
+    }
+
 
     useEffect(() => {
         if (isInView) controls.start({ opacity: 1, y: 0 })
@@ -24,7 +40,7 @@ export default function CardContent({ product }: Props) {
             initial={{ opacity: 0, y: 50 }}
             animate={controls}
             transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="mx-10 my-10 md:my-4"
+            className="rounded-md px-10 py-10 md:my-4 shadow-2xl"
         >
             <div className="relative">
                 <Link href={`/product/${product.id}`}>
@@ -81,10 +97,25 @@ export default function CardContent({ product }: Props) {
                             <p className='ml-1'>Consultar</p>
                         </button>
                     </Link>
-                    <button className="flex items-center bg-neutral-400 text-white px-2 py-1 rounded font-semibold hover:bg-neutral-600 cursor-pointer duration-300 ml-3">
+                    <button
+                        onClick={handleClick}
+                        className={`flex items-center px-2 py-2 rounded font-semibold cursor-pointer duration-300 ml-3
+                        ${isUsedInCart
+                                ? 'bg-red-500 text-white hover:bg-red-700'
+                                : 'bg-neutral-400 text-white hover:bg-neutral-600'}
+                        `}
+                        title={
+                            isUsedInCart
+                                ? 'Quitar producto usado del carrito'
+                                : 'Agregar al carrito'
+                        }
+                    >
                         <ShoppingBagIcon width={14} height={14} />
-                        <p className='text-md ml-1'>+</p>
+                        <p className='text-xs ml-1 font-normal'>
+                            {isUsedInCart ? 'Quitar' : '+'}
+                        </p>
                     </button>
+
                 </div>
             </div>
         </motion.div>
