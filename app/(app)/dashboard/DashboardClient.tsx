@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { useFilteredProducts } from "@/hooks/useFilteredProducts";
@@ -6,6 +7,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useState, useCallback } from "react";
 import EditPriceModal from "@/components/EditPriceModal";
 import TableSkeleton from "@/components/Skeleton/TableSkeleton";
+import { useUpdateWithUser } from "@/hooks/useUpdateWithUser";
+import { useFeedbackStore } from "@/store/feedback";
 
 function DashboardClient() {
     const router = useRouter();
@@ -18,13 +21,16 @@ function DashboardClient() {
     const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
     const [statusFilter, setStatusFilter] = useState<string | null>('active');
 
-    const { data: products, loading } = useFilteredProducts(
+    const { data: products, loading, mutate } = useFilteredProducts(
         categoryId,
         subcategoryId,
         sortBy,
         sortOrder,
         statusFilter
     );
+
+    const { update } = useUpdateWithUser();
+    const setFeedback = useFeedbackStore((state) => state.setFeedback);
 
     const currentLabel = searchParams.get("subcategory_name") ||
         searchParams.get("category_name") ||
@@ -41,7 +47,20 @@ function DashboardClient() {
 
     const renderSortIcon = (column: string) => {
         if (sortBy !== column) return null;
-        return sortOrder === 'asc' ? <ChevronUp size={12} className="inline ml-1" /> : <ChevronDown size={12} className="inline ml-1" />;
+        return sortOrder === 'asc'
+            ? <ChevronUp size={12} className="inline ml-1" />
+            : <ChevronDown size={12} className="inline ml-1" />;
+    };
+
+    const toggleStatus = async (id: string, currentStatus: string) => {
+        try {
+            const newStatus = currentStatus === 'active' ? 'inactive' : 'active';
+            await update('products', id, { status: newStatus });
+            setFeedback(`Producto ${newStatus === 'active' ? 'activado' : 'inactivado'} correctamente.`, 'success');
+            mutate();
+        } catch (err: any) {
+            setFeedback('Error al actualizar estado: ' + err.message, 'error');
+        }
     };
 
     return (
@@ -60,15 +79,14 @@ function DashboardClient() {
                     >
                         + Agregar producto
                     </button>
-                    {statusFilter && (
+                    {statusFilter ? (
                         <button
                             onClick={() => setStatusFilter(null)}
                             className="cursor-pointer text-xs border border-primary text-primary px-2 py-1 rounded hover:bg-primary hover:text-white transition"
                         >
                             Mostrar todo
                         </button>
-                    )}
-                    {!statusFilter && (
+                    ) : (
                         <button
                             onClick={() => setStatusFilter("active")}
                             className="cursor-pointer text-xs border border-green-600 text-green-600 px-2 py-1 rounded hover:bg-green-600 hover:text-white transition"
@@ -86,26 +104,14 @@ function DashboardClient() {
                     <table className="w-full text-sm min-w-[800px]">
                         <thead>
                             <tr className="bg-neutral-200 text-xs">
-                                <th className="p-2 text-left cursor-pointer" onClick={() => toggleSort("model")}>
-                                    Modelo {renderSortIcon("model")}
-                                </th>
+                                <th className="p-2 text-left cursor-pointer" onClick={() => toggleSort("model")}>Modelo {renderSortIcon("model")}</th>
                                 <th className="p-2 text-left">Categoría</th>
-                                <th className="p-2 text-left cursor-pointer" onClick={() => toggleSort("storage")}>
-                                    GB {renderSortIcon("storage")}
-                                </th>
-                                <th className="p-2 text-left cursor-pointer" onClick={() => toggleSort("is_used")}>
-                                    Usado {renderSortIcon("is_used")}
-                                </th>
+                                <th className="p-2 text-left cursor-pointer" onClick={() => toggleSort("storage")}>GB {renderSortIcon("storage")}</th>
+                                <th className="p-2 text-left cursor-pointer" onClick={() => toggleSort("is_used")}>Usado {renderSortIcon("is_used")}</th>
                                 <th className="p-2 text-left">Color</th>
-                                <th className="p-2 text-left cursor-pointer" onClick={() => toggleSort("price")}>
-                                    Precio {renderSortIcon("price")}
-                                </th>
-                                <th className="p-2 text-left cursor-pointer" onClick={() => toggleSort("is_offer")}>
-                                    Oferta {renderSortIcon("is_offer")}
-                                </th>
-                                <th className="p-2 text-left cursor-pointer" onClick={() => toggleSort("status")}>
-                                    Estado {renderSortIcon("status")}
-                                </th>
+                                <th className="p-2 text-left cursor-pointer" onClick={() => toggleSort("price")}>Precio {renderSortIcon("price")}</th>
+                                <th className="p-2 text-left cursor-pointer" onClick={() => toggleSort("is_offer")}>Oferta {renderSortIcon("is_offer")}</th>
+                                <th className="p-2 text-left cursor-pointer" onClick={() => toggleSort("status")}>Estado {renderSortIcon("status")}</th>
                                 <th className="p-2 text-right"></th>
                             </tr>
                         </thead>
@@ -133,18 +139,25 @@ function DashboardClient() {
                                         )}
                                     </td>
                                     <td className="p-2">
-                                        {product.status === "active" ? (
-                                            <CircleCheck className="text-green-600" />
-                                        ) : (
-                                            <CircleMinus className="text-red-500" />
-                                        )}
+                                        <button
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                toggleStatus(product.id, product.status == null ? " " : product.status);
+                                            }}
+                                        >
+                                            {product.status === "active" ? (
+                                                <CircleCheck className="cursor-pointer hover:text-green-600 hover:fill-white text-white transition fill-green-600" />
+                                            ) : (
+                                                <CircleMinus className="cursor-pointer hover:text-red-500 hover:fill-white fill-red-500 transition text-white" />
+                                            )}
+                                        </button>
                                     </td>
                                     <td className="p-2 text-right">
                                         <EditPriceModal
                                             productId={product.id}
                                             productName={product.model || ""}
                                             currentPrice={product.price || 0}
-                                            onUpdated={() => router.refresh()}
+                                            onUpdated={() => mutate()}
                                         />
                                     </td>
                                 </tr>

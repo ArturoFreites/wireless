@@ -1,3 +1,5 @@
+'use client';
+
 import { useMemo } from "react";
 import { useSupabaseQuery } from "./useSupabaseQuery";
 import { ProductWithRelations } from "@/types/ProductWithRelations";
@@ -7,7 +9,7 @@ export function useFilteredProducts(
     subcategoryId?: string,
     sortBy?: string,
     sortOrder: 'asc' | 'desc' = 'asc',
-    status?: string | null // ✅ nuevo parámetro
+    status?: string | null
 ) {
     const filters = useMemo(() => {
         const baseFilters: Record<string, string> = {};
@@ -15,7 +17,7 @@ export function useFilteredProducts(
         if (subcategoryId) baseFilters.subcategory_id = subcategoryId;
         else if (categoryId) baseFilters.category_id = categoryId;
 
-        if (status) baseFilters.status = status; // ✅ aplica solo si existe
+        if (status) baseFilters.status = status;
 
         return baseFilters;
     }, [categoryId, subcategoryId, status]);
@@ -34,6 +36,7 @@ export function useFilteredProducts(
         data,
         loading,
         error,
+        mutate
     } = useSupabaseQuery<ProductWithRelations>(
         "products_with_relations",
         filters,
@@ -43,5 +46,5 @@ export function useFilteredProducts(
         order
     );
 
-    return { data, loading, error };
+    return { data, loading, error, mutate };
 }

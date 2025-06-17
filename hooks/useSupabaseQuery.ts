@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { supabaseBrowser } from '@/lib/superbase';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 type Filters = Record<string, string | number | boolean | null>;
 
@@ -22,48 +22,48 @@ export function useSupabaseQuery<T = any>(
     const [error, setError] = useState<string | null>(null);
     const [totalCount, setTotalCount] = useState<number>(0);
 
-    useEffect(() => {
-        const fetch = async () => {
-            setLoading(true);
+    const fetch = useCallback(async () => {
+        setLoading(true);
 
-            let query = supabaseBrowser
-                .from(table)
-                .select(selectString, { count: 'exact' });
+        let query = supabaseBrowser
+            .from(table)
+            .select(selectString, { count: 'exact' });
 
-            if (order?.column) {
-                query = query.order(order.column, { ascending: order.ascending });
-            } else {
-                query = query.order('created_at', { ascending: true });
+        if (order?.column) {
+            query = query.order(order.column, { ascending: order.ascending });
+        } else {
+            query = query.order('created_at', { ascending: true });
+        }
+
+        for (const key in filters) {
+            const value = filters[key];
+            if (value !== null && value !== undefined && value !== '') {
+                query = query.eq(key, value);
             }
+        }
 
-            for (const key in filters) {
-                const value = filters[key];
-                if (value !== null && value !== undefined && value !== '') {
-                    query = query.eq(key, value);
-                }
-            }
+        const from = (page - 1) * pageSize;
+        const to = from + pageSize - 1;
+        query = query.range(from, to);
 
-            const from = (page - 1) * pageSize;
-            const to = from + pageSize - 1;
-            query = query.range(from, to);
+        const { data, error, count } = await query;
 
-            const { data, error, count } = await query;
+        if (error || !Array.isArray(data)) {
+            setError(error?.message ?? 'Error desconocido');
+            setData(null);
+            setTotalCount(0);
+        } else {
+            setData(data as T[]);
+            setError(null);
+            setTotalCount(count || 0);
+        }
 
-            if (error || !Array.isArray(data)) {
-                setError(error?.message ?? 'Error desconocido');
-                setData(null);
-                setTotalCount(0);
-            } else {
-                setData(data as T[]);
-                setError(null);
-                setTotalCount(count || 0);
-            }
-
-            setLoading(false);
-        };
-
-        fetch();
+        setLoading(false);
     }, [table, filters, page, pageSize, selectString, JSON.stringify(order)]);
+
+    useEffect(() => {
+        fetch();
+    }, [fetch]);
 
     return {
         data,
@@ -71,5 +71,6 @@ export function useSupabaseQuery<T = any>(
         error,
         totalCount,
         totalPages: Math.ceil(totalCount / pageSize),
+        mutate: fetch
     };
 }

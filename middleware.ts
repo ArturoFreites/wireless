@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 // Reemplazá con tu Project Ref de Supabase
 const SUPABASE_COOKIE_NAME = `sb-${process.env.NEXT_PUBLIC_SUPABASE_PROJECT_REF}-auth-token`;
 
-const protectedRoutes = ['/dashboard', '/profile', '/admin', '/config'];
+const protectedRoutes = ['/dashboard', '/create', '/edit', '/config'];
 
 export function middleware(req: NextRequest) {
     const res = NextResponse.next();

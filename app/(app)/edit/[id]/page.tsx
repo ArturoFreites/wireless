@@ -1,18 +1,26 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @next/next/no-img-element */
 'use client';
 
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useProductById } from "@/hooks/useProductById";
 import { useState, useEffect } from "react";
 import Input from "@/components/Input";
 import TextArea from "@/components/TextArea";
-import { supabaseBrowser } from "@/lib/superbase";
 import CategoryDropdown from '@/components/CategoryDropdown';
 import SubcategoryDropdown from '@/components/SubcategoryDropdown';
 import { X } from 'lucide-react';
+import { useFeedbackStore } from '@/store/feedback';
+import { validateImageDimensions } from "@/util/imageValidator";
+import { validateProductFields } from "@/util/validateProductFields";
+import { useUpdateWithUser } from "@/hooks/useUpdateWithUser";
 
 function EditPage() {
 	const { id } = useParams<{ id: string }>();
 	const { data: product, loading } = useProductById(id);
+	const setFeedback = useFeedbackStore((state) => state.setFeedback);
+	const router = useRouter();
+	const { update } = useUpdateWithUser();
 
 	const [model, setModel] = useState('');
 	const [price, setPrice] = useState('');
@@ -51,6 +59,8 @@ function EditPage() {
 	const handleMainImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0];
 		if (!file) return;
+		const isValid = await validateImageDimensions(file, 1000, 1000);
+		if (!isValid) return;
 		const url = await uploadImage(file);
 		setMainImageUrl(url);
 	};
@@ -61,6 +71,8 @@ function EditPage() {
 
 		const newUrls: string[] = [];
 		for (let i = 0; i < files.length; i++) {
+			const isValid = await validateImageDimensions(files[i], 1000, 1000);
+			if (!isValid) continue;
 			const url = await uploadImage(files[i]);
 			newUrls.push(url);
 		}
@@ -70,9 +82,19 @@ function EditPage() {
 	const handleUpdate = async () => {
 		if (!id) return;
 
-		const { error } = await supabaseBrowser
-			.from("products")
-			.update({
+		const isValid = validateProductFields({
+			categoryId,
+			subcategoryId,
+			model,
+			mainImageUrl,
+			price,
+			description,
+		});
+
+		if (!isValid) return;
+
+		try {
+			await update("products", id, {
 				model,
 				price: parseFloat(price),
 				battery_percentage: parseFloat(battery),
@@ -81,17 +103,15 @@ function EditPage() {
 				description,
 				main_image_url: mainImageUrl,
 				image_urls: imageUrls,
-				category_id: categoryId,
 				subcategory_id: subcategoryId,
 				is_offer: isOffer,
 				is_used: isUsed,
-			})
-			.eq("id", id);
+			});
 
-		if (error) {
-			alert("Error al actualizar: " + error.message);
-		} else {
-			alert("Producto actualizado correctamente");
+			setFeedback("Producto actualizado correctamente", 'success');
+			router.push('/dashboard');
+		} catch (error: any) {
+			setFeedback("Error al actualizar: " + error.message, 'error');
 		}
 	};
 
@@ -103,9 +123,8 @@ function EditPage() {
 			<h1 className="mt-10 text-center font-bold text-xl mb-4">Editar Producto</h1>
 			<div className='md:flex md:flex-row'>
 				<div className="w-full md:w-1/3 flex flex-col items-center justify-start p-4">
-					<p className="text-sm font-bold mb-2">Imagen principal</p>
+					<p className="text-sm font-bold mb-2">Imagen principal (1000x1000)</p>
 					{mainImageUrl && (
-						// eslint-disable-next-line @next/next/no-img-element
 						<img src={mainImageUrl} alt="Main" className="w-48 h-48 object-cover rounded mb-2" />
 					)}
 					<label className="bg-neutral-700 text-white text-xs px-4 py-2 rounded-md cursor-pointer mb-4">
@@ -115,14 +134,11 @@ function EditPage() {
 
 					<hr className="my-6 w-full" />
 
-					<p className="text-sm font-bold mb-2">Imágenes adicionales</p>
+					<p className="text-sm font-bold mb-2">Imágenes adicionales (1000x1000)</p>
 					<div className="flex flex-wrap gap-3 mb-2">
 						{imageUrls.map((url, index) => (
 							<div key={index} className="relative">
-								{
-									// eslint-disable-next-line @next/next/no-img-element
-									<img src={url} alt={`img-${index}`} className="w-24 h-24 object-cover rounded" />
-								}
+								<img src={url} alt={`img-${index}`} className="w-24 h-24 object-cover rounded" />
 								<button
 									onClick={() => handleRemoveImage(index)}
 									className="absolute -top-2 -right-2 bg-black text-white rounded-full w-5 h-5 text-xs flex items-center justify-center cursor-pointer hover:bg-red-600 duration-100"
