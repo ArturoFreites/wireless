@@ -1,5 +1,5 @@
-import Content from "@/components/home/content";
-import HomeCarrousel from "@/components/home/homeCarrousel";
+import Content from "@/components/home/Content";
+import HomeCarrousel from "@/components/home/HomeCarrousel";
 
 export default function Home() {
 

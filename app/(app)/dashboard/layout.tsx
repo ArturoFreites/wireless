@@ -1,4 +1,4 @@
-import NavDashboard from "@/components/dashboard/navDashboard";
+import NavDashboard from "@/components/dashboard/NavDashboard";
 
 function AppLayout({children }: { children: React.ReactNode }) {
     return (

@@ -7,7 +7,7 @@ import Price from "@/components/Price";
 import { useProductById } from "@/hooks/useProductById";
 import { Banknote, BatteryCharging, CreditCardIcon, HandCoinsIcon, Recycle, Truck } from "lucide-react";
 import ProductPageSkeleton from '@/components/skeleton/ProductPageSkeleton';
-import ProductGallery from '@/components/product/productGallery';
+import ProductGallery from '@/components/product/ProductGallery';
 
 export default function Page() {
 

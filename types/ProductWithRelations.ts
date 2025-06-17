@@ -12,7 +12,6 @@ export type ProductWithRelations = {
     is_offer: boolean | null;
     is_used: boolean | null;
     main_image_url: string | null;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     image_urls: string[] | null;
     status: string | null;
     deleted_at: string | null;

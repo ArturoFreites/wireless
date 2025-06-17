@@ -1,7 +1,7 @@
 'use client';
 
 import { useGroupedProducts } from "@/hooks/useGroupedProducts";
-import ContentGroup from "./contentGroup";
+import ContentGroup from "./ContentGroup";
 
 function Content() {
     const { data, loading } = useGroupedProducts(6);
