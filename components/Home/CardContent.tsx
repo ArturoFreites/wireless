@@ -42,7 +42,7 @@ export default function CardContent({ product }: Props) {
             initial={{ opacity: 0, y: 50 }}
             animate={controls}
             transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="rounded-md px-10 py-6 md:my-4 shadow-2xl"
+            className="rounded-md px-10 py-6 my-6 shadow-2xl"
         >
             <div className="relative">
                 <Link href={`/product/${product.id}`}>
