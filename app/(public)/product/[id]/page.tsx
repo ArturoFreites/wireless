@@ -2,12 +2,12 @@
 
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import WhatsappIcon from "@/components/icon/WhatsappIcon";
+import WhatsappIcon from "@/components/Icon/WhatsappIcon";
 import Price from "@/components/Price";
 import { useProductById } from "@/hooks/useProductById";
 import { Banknote, BatteryCharging, CreditCardIcon, HandCoinsIcon, Recycle, Truck } from "lucide-react";
-import ProductPageSkeleton from '@/components/skeleton/ProductPageSkeleton';
-import ProductGallery from '@/components/product/ProductGallery';
+import ProductPageSkeleton from '@/components/Skeleton/ProductPageSkeleton';
+import ProductGallery from '@/components/Product/ProductGallery';
 
 export default function Page() {
 

@@ -2,9 +2,9 @@
 
 import { useSearchParams } from 'next/navigation';
 import { useFilteredProducts } from '@/hooks/useFilteredProducts';
-import ContentGroupSkeleton from '@/components/skeleton/ContentGroupSkeleton';
+import ContentGroupSkeleton from '@/components/Skeleton/ContentGroupSkeleton';
 import NoDataComponent from '@/components/NoDataComponent';
-import ContentGroup from '@/components/home/ContentGroup';
+import ContentGroup from '@/components/Home/ContentGroup';
 
 export default function ProductsClient() {
     const searchParams = useSearchParams();

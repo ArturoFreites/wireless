@@ -2,7 +2,7 @@
 
 import { useFilteredProducts } from "@/hooks/useFilteredProducts";
 import { CircleCheck, CircleMinus, CirclePercent, ChevronUp, ChevronDown } from "lucide-react";
-import TableSkeleton from "@/components/skeleton/TableSkeleton";
+import TableSkeleton from "@/components/Skeleton/TableSkeleton";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState, useCallback } from "react";
 import EditPriceModal from "@/components/EditPriceModal";
