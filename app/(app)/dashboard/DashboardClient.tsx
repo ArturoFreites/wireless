@@ -5,7 +5,7 @@ import { CircleCheck, CircleMinus, CirclePercent, ChevronUp, ChevronDown } from 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState, useCallback } from "react";
 import EditPriceModal from "@/components/EditPriceModal";
-import TableSkeleton from "@/components/Skeleton/TableSkeleton";
+import TableSkeleton from "@/components/skeleton/TableSkeleton";
 
 function DashboardClient() {
     const router = useRouter();
