@@ -1,1 +1,0 @@
-export const DOLAR = { moneda: "USD", casa: "cripto", nombre: "Cripto", compra: 1198.8, venta: 1204.05, fechaActualizacion: "2025-06-07T21:00:00.000Z" }

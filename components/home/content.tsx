@@ -1,12 +1,22 @@
+'use client';
+
 import ContentGroup from "./contentGroup";
+import { useGroupedProducts } from "@/hooks/useGroupedProducts";
 
 function Content() {
+    const { data, loading } = useGroupedProducts(6);
+
+    if (loading) return <p className="text-center py-20">Cargando productos...</p>;
+
     return (
-        <section className=" bg-white">
-            <ContentGroup/>
-            <ContentGroup/>
-            <ContentGroup/>
-            <ContentGroup/>
+        <section className="bg-white">
+            {Object.entries(data).map(([subcategoryId, group]) => (
+                <ContentGroup
+                    key={subcategoryId}
+                    title={group.subcategoryName}
+                    products={group.products}
+                />
+            ))}
         </section>
     );
 }

@@ -1,10 +1,10 @@
 import { Suspense } from "react";
-import DashboardClient from "./DashboardClient";
+import ProductsClient from "./ProductsClient";
 
-export default function DashboardPage() {
+export default function ProductsPage() {
     return (
         <Suspense fallback={<p>Cargando productos...</p>}>
-            <DashboardClient />
+            <ProductsClient />
         </Suspense>
     );
 }

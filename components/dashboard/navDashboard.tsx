@@ -1,98 +1,167 @@
-'use client'
+'use client';
 
-import { UserCircle } from "lucide-react";
+import { useEffect, useState } from "react";
+import { supabaseBrowser } from "@/lib/superbase";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
-import Link from "next/link";
-import { useState } from "react";
+import { UserCircle } from "lucide-react";
+import { useGroupedCategories } from "@/hooks/useGroupedCategories";
 
 function NavDashboard() {
-    const [open, setOpen] = useState(false);
-    return (
-        <>
-            <button
-                onClick={() => setOpen(true)}
-                className={`fixed bottom-25 right-5 z-50 sm:hidden bg-neutral-200 rounded-full px-4 py-2 flex justify-center items-center shadow-2xl ${open ? 'hidden' : ''}`}
-            >
-                <Image
-                    className=""
-                    src={"/img/wireless.webp"}
-                    alt="wireless"
-                    width={35}
-                    height={35}
-                />
-                <p className="font-semibold text-sm text-neutral-700">Menu</p>
-            </button>
+	const [email, setEmail] = useState<string | null>(null);
+	const [expandedCategoryId, setExpandedCategoryId] = useState<string | null>(null);
+	const [open, setOpen] = useState(false);
+	const router = useRouter();
+	const { data: categories, loading } = useGroupedCategories();
 
-            {/* Sidebar */}
-            <aside
-                className={`md:hidden fixed w-full sm:static min-h-screen inset-y-0 left-0 z-40 bg-white flex-col
-                            transition-all duration-300 transform
-                            ${open ? 'translate-x-0' : 'translate-x-full'}
-                            sm:translate-x-0 
-                            ${open ? 'sm:w-72' : 'sm:w-30'}
-                        `}
-            >
-                <div
-                    onClick={() => setOpen(!open)}
-                    className="flex items-center justify-center sm:h-24 h-16 m-6"
-                >
-                    <Image
-                        className=""
-                        src={"/img/wireless.webp"}
-                        alt="wireless"
-                        width={35}
-                        height={35}
-                    />
-                    <p className="ml-2 font-semibold text-neutral-700 text-sm">Wireless.Ar</p>
-                </div>
+	useEffect(() => {
+		const storedEmail = localStorage.getItem("email");
+		if (storedEmail) setEmail(storedEmail);
+	}, []);
 
-                <button
-                    aria-label="Cerrar"
-                    onClick={() => setOpen(!open)}
-                    className="md:hidden cursor-pointer absolute right-3 top-3 text-5xl leading-none text-neutral-700 hover:text-gray-600"
-                >
-                    ×
-                </button>
+	const handleLogout = async () => {
+		await supabaseBrowser.auth.signOut();
+		localStorage.removeItem("token");
+		localStorage.removeItem("email");
+		router.push("/login");
+	};
 
-                <div className="w-full mx-10">
-                    <p>Contenido</p>
-                </div>
+	const handleCategoryClick = (id: string, name: string) => {
+		setExpandedCategoryId(expandedCategoryId === id ? null : id);
+		router.push(`/dashboard?category_id=${id}&category_name=${encodeURIComponent(name)}`);
+		setOpen(false);
+	};
 
-            </aside>
+	const handleSubcategoryClick = (catId: string, subId: string, subName: string) => {
+		router.push(`/dashboard?category_id=${catId}&subcategory_id=${subId}&subcategory_name=${encodeURIComponent(subName)}`);
+		setOpen(false);
+	};
 
-            <article className="hidden w-1/6 h-full text-neutral-800 shadow-md
-                md:flex flex-col items-center
-            ">
-                <div className="mt-10 flex justify-center items-center">
-                    <Image
-                        className=""
-                        src={"/img/wireless.webp"}
-                        alt="wireless"
-                        width={35}
-                        height={35}
-                    />
-                    <p className="font-semibold text-xs ml-2">Wireless.Ar</p>
-                </div>
-                <div className="my-10">
-                    <p>Content</p>
-                </div>
-                <div className="flex flex-col justify-center items-center">
-                    <div className="flex justify-center items-center">
-                        <UserCircle width={20} height={20} />
-                        <p className="text-xs ml-1">
-                            pedro@gmail.com
-                        </p>
-                    </div>
-                    <Link href={"/login"} className="
-                        text-xs underline mt-1 font-semibold
-                    "
-                    >
-                        Cerrar sessión
-                    </Link>
-                </div>
-            </article>
-        </>
-    );
+	return (
+		<>
+			{/* Botón flotante menú móvil */}
+			<button
+				onClick={() => setOpen(true)}
+				className={`fixed bottom-20 right-5 z-50 sm:hidden bg-neutral-200 rounded-full px-4 py-2 flex justify-center items-center shadow-2xl ${open ? 'hidden' : ''}`}
+			>
+				<Image src="/img/wireless.webp" alt="wireless" width={35} height={35} />
+				<p className="font-semibold text-sm text-neutral-700 ml-2">Menú</p>
+			</button>
+
+			{/* Sidebar móvil */}
+			<aside className={`md:hidden fixed w-full sm:static min-h-screen inset-y-0 left-0 z-40 bg-white flex-col transition-all duration-300 transform ${open ? 'translate-x-0' : 'translate-x-full'} sm:translate-x-0 sm:w-1/6`}>
+				<div onClick={() => setOpen(false)} className="flex items-center justify-center sm:h-24 h-16 m-6">
+					<Image src="/img/wireless.webp" alt="wireless" width={35} height={35} />
+					<p className="ml-2 font-semibold text-neutral-700 text-sm">Wireless.Ar</p>
+				</div>
+
+				<button
+					aria-label="Cerrar"
+					onClick={() => setOpen(false)}
+					className="md:hidden cursor-pointer absolute right-3 top-3 text-5xl leading-none text-neutral-700 hover:text-gray-600"
+				>
+					×
+				</button>
+
+				<div className="w-full px-4 text-neutral-700">
+					<button
+						className="w-full text-left px-2 py-2 hover:bg-neutral-400"
+						onClick={() => {
+							setExpandedCategoryId(null);
+							router.push("/dashboard");
+							setOpen(false);
+						}}
+					>
+						<p className="text-xs">Todos</p>
+					</button>
+					{!loading && categories?.map((cat) => (
+						<div key={cat.id}>
+							<button
+								className="w-full text-left px-2 py-2 hover:bg-neutral-400 cursor-pointer font-medium"
+								onClick={() => handleCategoryClick(String(cat.id), cat.name)}
+							>
+								<p className="text-xs">{cat.name}</p>
+							</button>
+							{expandedCategoryId === String(cat.id) && cat.subcategories.map(sub => (
+								<button
+									key={sub.id}
+									className="w-full text-left pl-6 pr-2 py-2 text-sm hover:bg-neutral-400 text-neutral-600"
+									onClick={() => handleSubcategoryClick(String(cat.id), String(sub.id), sub.name)}
+								>
+									<p className="text-xs">{sub.name}</p>
+								</button>
+							))}
+						</div>
+					))}
+				</div>
+
+				<div className="flex flex-col justify-center items-center mt-auto mb-4 px-4 text-neutral-800">
+					<div className="flex items-center">
+						<UserCircle width={20} height={20} />
+						<p className="text-xs ml-1">{email}</p>
+					</div>
+					<button
+						onClick={handleLogout}
+						className="text-xs underline mt-1 font-semibold hover:font-bold"
+					>
+						Cerrar sesión
+					</button>
+				</div>
+			</aside>
+
+			{/* Sidebar escritorio */}
+			<article className="hidden w-1/6 min-h-screen text-neutral-800 shadow-md md:flex flex-col items-center overflow-y-auto">
+				<div className="mt-10 flex justify-center items-center">
+					<Image src="/img/wireless.webp" alt="wireless" width={35} height={35} />
+					<p className="font-semibold text-xs ml-2">Wireless.Ar</p>
+				</div>
+
+				<div className="my-10 w-full">
+					<button
+						className="w-full text-left px-6 py-2 hover:bg-neutral-300 cursor-pointer"
+						onClick={() => {
+							setExpandedCategoryId(null);
+							router.push("/dashboard");
+						}}
+					>
+						<p className="text-xs">Todos</p>
+					</button>
+					{!loading && categories?.map((cat) => (
+						<div key={cat.id}>
+							<button
+								className="w-full text-left px-6 py-2 hover:bg-neutral-300 font-medium cursor-pointer "
+								onClick={() => handleCategoryClick(String(cat.id), cat.name)}
+							>
+								<p className="text-xs">{cat.name}</p>
+							</button>
+							{expandedCategoryId === String(cat.id) && cat.subcategories.map(sub => (
+								<button
+									key={sub.id}
+									className="w-full text-left pl-10 pr-6 py-2 text-sm hover:bg-neutral-300 cursor-pointer"
+									onClick={() => handleSubcategoryClick(String(cat.id), String(sub.id), sub.name)}
+								>
+									<p className="text-xs">{sub.name}</p>
+								</button>
+							))}
+						</div>
+					))}
+				</div>
+
+				<div className="flex flex-col justify-center items-center mt-auto mb-4">
+					<div className="flex items-center">
+						<UserCircle width={20} height={20} />
+						<p className="text-xs ml-1">{email}</p>
+					</div>
+					<button
+						onClick={handleLogout}
+						className="text-xs underline mt-1 font-semibold hover:font-bold"
+					>
+						Cerrar sesión
+					</button>
+				</div>
+			</article>
+		</>
+	);
 }
 
 export default NavDashboard;

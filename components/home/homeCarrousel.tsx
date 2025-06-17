@@ -32,7 +32,7 @@ export default function HomeCarrousel({ images, imagesMobile, interval = 3000 }:
     }, [activeImages.length, interval])
 
     return (
-        <div className="w-full h-fit overflow-hidden relative">
+        <div className="w-full h-fit overflow-hidden relative md:pt-8">
             <div
                 className="flex transition-transform duration-700 ease-in-out"
                 style={{ transform: `translateX(-${index * 100}%)` }}
