@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { motion, useAnimation, useInView } from 'framer-motion'
 import { useEffect, useRef } from 'react'
-import WhatsappIcon from '../icon/whatsappIcon'
+import WhatsappIcon from '../icon/WhatsappIcon'
 import { ProductWithRelations } from '@/types/ProductWithRelations'
 import { BatteryCharging, ShoppingBagIcon } from 'lucide-react'
 

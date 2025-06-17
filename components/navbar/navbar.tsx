@@ -2,11 +2,11 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import NavBarLinks from './navbarLinks';
-import Store from './store';
-import Advertisements from '../home/advertisements';
-import NavbarMobile from './navbarMobile';
 import { useGroupedCategories } from '@/hooks/useGroupedCategories';
+import NavbarMobile from './navbarMobile';
+import NavBarLinks from './NavbarLinks';
+import { Store } from 'lucide-react';
+import Advertisements from '../home/advertisements';
 
 function NavBar() {
     const { data: categories, loading, error } = useGroupedCategories();

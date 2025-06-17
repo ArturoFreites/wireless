@@ -1,12 +1,11 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { MenuIcon, X } from 'lucide-react';
-import NavBarLinks from './navbarLinks';
+import { MenuIcon, Store, X } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-import Store from './store';
 import { NavLink } from '@/types/navbar';
+import NavBarLinks from './NavbarLinks';
 
 type Props = {
     links: NavLink[] | null;

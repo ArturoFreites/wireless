@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import WhatsappIcon from './icon/whatsappIcon';
+import WhatsappIcon from './icon/WhatsappIcon';
 
 export default function FloatWhatsappButton() {
     const message = "Hola! Tengo una consulta.";

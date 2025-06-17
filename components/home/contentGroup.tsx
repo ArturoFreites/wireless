@@ -2,8 +2,8 @@
 
 import { useRef, useEffect } from "react"
 import { motion, useInView, useAnimation } from "framer-motion"
-import CardContent from "./cardContent"
 import { ProductWithRelations } from "@/types/ProductWithRelations"
+import CardContent from "./cardContent"
 
 type Props = { products: ProductWithRelations[], title:string|null}
 
