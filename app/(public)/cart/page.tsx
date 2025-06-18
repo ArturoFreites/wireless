@@ -19,9 +19,9 @@ export default function CartPage() {
         items
             .map((item) => {
                 if (item.is_used) {
-                    return `- ${item.model} <${item.storage ?? ''}GB> ${item.color ?? ''} (Batería: ${item.battery_percentage ?? '?'}%) x${item.quantity}`
+                    return `- ${item.model} ${item.storage ?? ''}GB ${item.color ?? ''} (Batería: ${item.battery_percentage ?? '?'}%) x${item.quantity}`
                 }
-                return `- ${item.model} <${item.storage ?? ''}GB> x${item.quantity}`
+                return `- ${item.model} ${item.storage ?? ''}GB x${item.quantity}`
             })
             .join('\n')
 
@@ -36,7 +36,7 @@ export default function CartPage() {
         )
 
     return (
-        <div className="p-6 max-w-4xl mx-auto text-neutral-800">
+        <div className="p-6 max-w-4xl mx-auto text-neutral-800 h-screen">
             <h1 className="text-2xl font-bold mb-6 mt-10">Tu carrito</h1>
 
             {/* Tabla en desktop */}
