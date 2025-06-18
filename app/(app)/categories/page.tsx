@@ -93,7 +93,7 @@ function Categories() {
             ) : (
                 <ul className="space-y-4">
                     {categories.map((cat) => (
-                        <li key={cat.id} className="border p-4 rounded-md shadow bg-white">
+                        <li key={cat.id} className="shadow-md p-4 rounded-md bg-white">
                             {editingCategory === cat.id ? (
                                 <div className="flex items-center gap-2 mb-2">
                                     <input
@@ -159,14 +159,14 @@ function Categories() {
                                                 </>
                                             ) : (
                                                 <>
-                                                    <span>{sub.name}</span>
+                                                    <span className='mb-2'>{sub.name}</span>
                                                     <div className="flex gap-2">
                                                         <button
                                                             onClick={() => {
                                                                 setEditingSubMap((prev) => ({ ...prev, [sub.id]: sub.id }));
                                                                 setEditSubValueMap((prev) => ({ ...prev, [sub.id]: sub.name }));
                                                             }}
-                                                            className="text-blue-600"
+                                                            className="text-secondary"
                                                         >
                                                             <Pencil size={14} />
                                                         </button>
@@ -195,7 +195,7 @@ function Categories() {
                                 />
                                 <button
                                     onClick={() => handleCreateSubcategory(cat.id)}
-                                    className="text-xs px-2 py-1 bg-blue-600 text-white rounded"
+                                    className="text-xs px-2 py-1 bg-secondary text-white rounded"
                                 >
                                     + Agregar
                                 </button>

@@ -17,7 +17,7 @@ function Page() {
 
     return (
         <section className="w-screen h-screen flex flex-col md:flex-row">
-            <div className="bg-neutral-100 text-neutral-700 md:w-1/3 h-full flex flex-col justify-center items-center">
+            <div className="bg-neutral-200 text-neutral-700 md:w-1/3 h-full flex flex-col justify-center items-center">
                 <div className="md:hidden flex mb-6">
                     <Image src={"/img/wireless.webp"} alt="wireless" width={50} height={50} />
                     <div className="ml-1">

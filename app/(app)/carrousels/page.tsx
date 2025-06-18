@@ -56,9 +56,9 @@ export default function CarrouselsPage() {
         try {
             await uploadCarrouselImage(file, type)
             await fetchImages()
-            setFeedback('Imagen subida correctamente','success' )
+            setFeedback('Imagen subida correctamente', 'success')
         } catch (err: any) {
-            setFeedback(err.message,'error')
+            setFeedback(err.message, 'error')
         } finally {
             setLoading(false)
         }
@@ -75,39 +75,59 @@ export default function CarrouselsPage() {
 
     return (
         <section className="p-4 space-y-6">
-            <h2 className="text-xl font-bold">Subir imagen al carrusel</h2>
+            <h2 className="text-xl font-bold">Carrousel</h2>
 
             <div className="space-y-4">
-                <select
-                    value={type}
-                    onChange={(e) => setType(e.target.value as any)}
-                    className="border px-2 py-1 rounded"
-                >
-                    <option value="desktop">Desktop</option>
-                    <option value="mobile">Mobile</option>
-                </select>
+                <div className='flex items-center gap-5'>
+                    <select
+                        value={type}
+                        onChange={(e) => setType(e.target.value as any)}
+                        className="border px-2 py-1 rounded"
+                    >
+                        <option value="desktop">Desktop</option>
+                        <option value="mobile">Mobile</option>
+                    </select>
 
-                <input
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => {
-                        setFile(e.target.files?.[0] || null)
-                        setPreviewUrl(e.target.files?.[0] ? URL.createObjectURL(e.target.files[0]) : null)
-                    }}
-                />
+                    <label
+                        htmlFor="file-upload"
+                        className="cursor-pointer bg-secondary text-white px-4 py-2 rounded text-sm"
+                    >
+                        Seleccionar imagen
+                    </label>
+                    
+                    {file && <span className="text-sm text-gray-700 bg-neutral-100 rounded-md px-3 py-1">{file.name}</span>}
+                </div>
+
+                <div className="flex items-center space-x-4">
+
+                    <input
+                        id="file-upload"
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => {
+                            const file = e.target.files?.[0] || null;
+                            setFile(file);
+                            setPreviewUrl(file ? URL.createObjectURL(file) : null);
+                        }}
+                        className="hidden"
+                    />
+                </div>
+
 
                 {previewUrl && (
-                    <img
-                        src={previewUrl}
-                        alt="Preview"
-                        className="border rounded max-w-full h-auto mt-2"
-                    />
+                    <div className='p-10 w-full bg-neutral-100 rounded-md'>
+                        <img
+                            src={previewUrl}
+                            alt="Preview"
+                            className="border rounded max-w-full h-44  mt-2"
+                        />
+                    </div>
                 )}
 
                 <button
                     onClick={handleUpload}
                     disabled={loading || !file}
-                    className="flex items-center px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-50"
+                    className="flex items-center px-4 py-2 bg-primary text-white rounded disabled:opacity-50 cursor-pointer"
                 >
                     {loading ? <Loader2 className="animate-spin mr-2 h-4 w-4" /> : <UploadCloud className="mr-2 h-4 w-4" />}
                     {loading ? 'Subiendo...' : 'Subir imagen'}
@@ -117,12 +137,11 @@ export default function CarrouselsPage() {
             <h3 className="text-lg font-semibold mt-6">Imágenes activas</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {images.map((img) => (
-                    <div key={img.id} className="relative border p-2 rounded shadow">
+                    <div key={img.id} className="relative px-4 py-4 rounded shadow-md">
                         <img src={img.img} alt={img.name} width={400} height={300} className="rounded object-cover" />
-                        <p className="text-sm mt-1">{img.name}</p>
                         <button
                             onClick={() => handleDeactivate(img.id)}
-                            className="absolute top-2 right-2 bg-red-600 text-white text-xs px-2 py-1 rounded flex items-center"
+                            className="absolute top-2 right-2 bg-red-600 text-white text-xs px-2 py-1 rounded flex items-center font-semibold"
                         >
                             <EyeOff className="w-4 h-4 mr-1" /> Desactivar
                         </button>

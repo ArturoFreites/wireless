@@ -42,15 +42,15 @@ export default function CardContent({ product }: Props) {
             initial={{ opacity: 0, y: 50 }}
             animate={controls}
             transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="rounded-md px-10 py-6 my-6 shadow-2xl"
+            className="rounded-md px-10 py-6 my-6"
         >
             <div className="relative">
-                <Link href={`/product/${product.id}`}>
+                <Link href={`/product/${product.id}`} className='w-full flex justify-center items-center'>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                         src={product?.main_image_url || ''}
                         alt={product?.model || ''}
-                        className="w-full h-auto hover:scale-95 duration-200 cursor-pointer rounded-md mt-4"
+                        className="w-full h-auto hover:scale-95 duration-200 cursor-pointer rounded-md mt-4 lg:w-70"
                     />
                 </Link>
 

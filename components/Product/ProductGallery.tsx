@@ -20,7 +20,7 @@ export default function ProductGallery({ images = [], is_offer }: Props) {
                                 alt={`Miniatura ${i}`}
                                 width={60}
                                 height={60}
-                                className="rounded-lg border hover:border-black transition-all duration-300"
+                                className="rounded-lg border hover:border-black transition-all duration-300 lg:w-24"
                             />
                         }
                     </button>
@@ -35,7 +35,7 @@ export default function ProductGallery({ images = [], is_offer }: Props) {
                         alt="Imagen principal"
                         width={250}
                         height={250}
-                        className="md:w-72 rounded-md"
+                        className="md:w-72 rounded-md lg:w-90"
                     />
                 }
 
