@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { UserCircle } from "lucide-react";
 import { useGroupedCategories } from "@/hooks/useGroupedCategories";
+import Link from "next/link";
 
 function NavDashboard() {
 	const [email, setEmail] = useState<string | null>(null);
@@ -93,6 +94,23 @@ function NavDashboard() {
 							))}
 						</div>
 					))}
+					<div className="flex flex-col mt-4">
+						<Link href={"/banners"}
+							className="text-xs w-full px-2 py-2 hover:bg-neutral-300 cursor-pointer"
+						>
+							Banners
+						</Link>
+						<Link href={"/carrousels"}
+							className="text-xs w-full px-2 py-2 hover:bg-neutral-300 cursor-pointer"
+						>
+							Carrousels
+						</Link>
+						<Link href={"/categories"}
+							className="text-xs w-full px-2 py-2 hover:bg-neutral-300 cursor-pointer"
+						>
+							Categorias
+						</Link>
+					</div>
 				</div>
 
 				<div className="flex flex-col justify-center items-center mt-auto mb-4 px-4 text-neutral-800">
@@ -145,6 +163,23 @@ function NavDashboard() {
 							))}
 						</div>
 					))}
+					<div className="flex flex-col mt-4">
+						<Link href={"/banners"}
+							className="text-xs w-full px-6 py-2 hover:bg-neutral-300 cursor-pointer"
+						>
+							Banners
+						</Link>
+						<Link href={"/carrousels"}
+							className="text-xs w-full px-6 py-2 hover:bg-neutral-300 cursor-pointer"
+						>
+							Carrousels
+						</Link>
+						<Link href={"/categories"}
+							className="text-xs w-full px-6 py-2 hover:bg-neutral-300 cursor-pointer"
+						>
+							Categorias
+						</Link>
+					</div>
 				</div>
 
 				<div className="flex flex-col justify-center items-center mt-auto mb-4">

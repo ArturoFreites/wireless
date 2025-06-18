@@ -1,7 +1,7 @@
 'use client';
 
 import { useFeedbackStore } from '@/store/feedback';
-import { CheckCircle, AlertTriangle, OctagonAlert } from 'lucide-react';
+import { OctagonAlert } from 'lucide-react';
 import { useEffect } from 'react';
 
 export default function Feedback() {

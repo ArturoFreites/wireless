@@ -14,11 +14,13 @@ import { useFeedbackStore } from '@/store/feedback';
 import { validateImageDimensions } from "@/util/imageValidator";
 import { validateProductFields } from "@/util/validateProductFields";
 import { useUpdateWithUser } from "@/hooks/useUpdateWithUser";
+import { useImageUploader } from "@/hooks/useImageUploader";
 
 function EditPage() {
 	const { id } = useParams<{ id: string }>();
 	const { data: product, loading } = useProductById(id);
 	const setFeedback = useFeedbackStore((state) => state.setFeedback);
+	const { uploadImage } = useImageUploader();
 	const router = useRouter();
 	const { update } = useUpdateWithUser();
 
@@ -74,7 +76,7 @@ function EditPage() {
 			const isValid = await validateImageDimensions(files[i], 1000, 1000);
 			if (!isValid) continue;
 			const url = await uploadImage(files[i]);
-			newUrls.push(url);
+			newUrls.push(url==null ? "":url);
 		}
 		setImageUrls(prev => [...prev, ...newUrls]);
 	};
@@ -199,7 +201,3 @@ function EditPage() {
 }
 
 export default EditPage;
-
-async function uploadImage(file: File): Promise<string> {
-	return Promise.resolve(URL.createObjectURL(file));
-}
