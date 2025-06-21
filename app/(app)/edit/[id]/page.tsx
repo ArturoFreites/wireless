@@ -25,7 +25,7 @@ function EditPage() {
 	const { update } = useUpdateWithUser();
 
 	const [model, setModel] = useState('');
-	const [price, setPrice] = useState('');
+	const [price, setPrice] = useState('0');
 	const [battery, setBattery] = useState('');
 	const [storage, setStorage] = useState('');
 	const [color, setColor] = useState('');
@@ -89,7 +89,6 @@ function EditPage() {
 			subcategoryId,
 			model,
 			mainImageUrl,
-			price,
 			description,
 		});
 

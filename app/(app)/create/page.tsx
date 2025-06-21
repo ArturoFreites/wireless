@@ -17,7 +17,7 @@ import { useImageUploader } from '@/hooks/useImageUploader';
 
 function CreatePage() {
     const [model, setModel] = useState('');
-    const [price, setPrice] = useState('');
+    const [price, setPrice] = useState('0');
     const [battery, setBattery] = useState('');
     const [storage, setStorage] = useState('');
     const [color, setColor] = useState('');
@@ -70,7 +70,6 @@ function CreatePage() {
             subcategoryId,
             model,
             mainImageUrl,
-            price,
             description,
         });
 

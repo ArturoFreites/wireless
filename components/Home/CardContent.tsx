@@ -85,8 +85,12 @@ export default function CardContent({ product }: Props) {
             </div>
 
             <div className="flex flex-col w-full items-center justify-center">
-                <p className="font-bold text-xl">${product.price} USD</p>
-
+                {
+                    product.price == 0 ?
+                        <p className="font-bold text-xl">A Consultar</p>
+                        :
+                        <p className="font-bold text-xl">${product.price} USD</p>
+                }
                 <div className="flex justify-center items-center mt-5">
                     <Link
                         href="https://wa.me/17164932230"
