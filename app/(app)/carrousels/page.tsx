@@ -37,19 +37,31 @@ export default function CarrouselsPage() {
 
         const img = new Image()
         img.src = URL.createObjectURL(file)
-        await new Promise<void>((resolve, reject) => {
-            img.onload = () => {
-                if (type === 'desktop' && img.width < 768) {
-                    reject(new Error('La imagen para desktop debe tener al menos 768px de ancho.'))
-                } else if (type === 'mobile' && img.width >= 768) {
-                    reject(new Error('La imagen para mobile debe tener menos de 768px de ancho.'))
-                } else {
-                    setPreviewUrl(img.src)
-                    resolve()
+
+        try {
+            await new Promise<void>((resolve, reject) => {
+                img.onload = () => {
+                    const isDesktop = type === 'desktop'
+                    const isMobile = type === 'mobile'
+
+                    const isValidDesktop = img.width === 1920 && img.height === 800
+                    const isValidMobile = img.width === 640 && img.height === 900
+
+                    if (isDesktop && !isValidDesktop) {
+                        reject(new Error('La imagen para desktop debe tener exactamente 1920x800.'))
+                    } else if (isMobile && !isValidMobile) {
+                        reject(new Error('La imagen para mobile debe tener exactamente 640x900.'))
+                    } else {
+                        setPreviewUrl(img.src)
+                        resolve()
+                    }
                 }
-            }
-            img.onerror = () => reject(new Error('No se pudo procesar la imagen.'))
-        })
+                img.onerror = () => reject(new Error('No se pudo procesar la imagen.'))
+            })
+        } catch (error: any) {
+            setFeedback(error.message, 'error')
+            return
+        }
 
         setLoading(true)
 
@@ -94,32 +106,32 @@ export default function CarrouselsPage() {
                     >
                         Seleccionar imagen
                     </label>
-                    
-                    {file && <span className="text-sm text-gray-700 bg-neutral-100 rounded-md px-3 py-1">{file.name}</span>}
                 </div>
 
                 <div className="flex items-center space-x-4">
-
                     <input
                         id="file-upload"
                         type="file"
                         accept="image/*"
                         onChange={(e) => {
-                            const file = e.target.files?.[0] || null;
-                            setFile(file);
-                            setPreviewUrl(file ? URL.createObjectURL(file) : null);
+                            const selectedFile = e.target.files?.[0] || null
+                            setFile(selectedFile)
+                            setPreviewUrl(null)
                         }}
                         className="hidden"
                     />
                 </div>
 
+                <p className="text-sm text-neutral-800 font-semibold">
+                    Dimensiones sugeridas: {type === 'desktop' ? '1920x800 px' : '640x900 px'}
+                </p>
 
                 {previewUrl && (
                     <div className='p-10 w-full bg-neutral-100 rounded-md'>
                         <img
                             src={previewUrl}
                             alt="Preview"
-                            className="border rounded max-w-full h-44  mt-2"
+                            className="border rounded max-w-full h-44 mt-2"
                         />
                     </div>
                 )}
