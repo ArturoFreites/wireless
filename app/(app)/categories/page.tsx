@@ -91,11 +91,11 @@ function Categories() {
             {loading ? (
                 <p className="text-sm">Cargando...</p>
             ) : (
-                <ul className="space-y-4">
+                <ul className="space-y-8">
                     {categories.map((cat) => (
                         <li key={cat.id} className="shadow-md p-4 rounded-md bg-white">
                             {editingCategory === cat.id ? (
-                                <div className="flex items-center gap-2 mb-2">
+                                <div className="flex items-center gap-6 mb-2">
                                     <input
                                         value={editValue}
                                         onChange={(e) => setEditValue(e.target.value)}
@@ -123,13 +123,13 @@ function Categories() {
                                                 setEditingCategory(cat.id);
                                                 setEditValue(cat.name);
                                             }}
-                                            className="text-blue-600"
+                                            className="bg-primary px-2 py-1 rounded-md text-white cursor-pointer hover:bg-neutral-300 hover:text-primary"
                                         >
                                             <Pencil size={16} />
                                         </button>
                                         <button
                                             onClick={() => handleDeleteCategory(cat.id)}
-                                            className="text-red-600"
+                                            className="bg-red-800 px-2 py-1 rounded-md text-white cursor-pointer hover:bg-neutral-300 hover:text-red-800"
                                         >
                                             <Trash2 size={16} />
                                         </button>
@@ -149,10 +149,10 @@ function Categories() {
                                                         className="border border-neutral-400 rounded px-2 py-1 text-sm mr-2"
                                                     />
                                                     <div className="flex gap-1">
-                                                        <button onClick={() => handleEditSubcategory(sub.id)} className="text-green-600">
+                                                        <button onClick={() => handleEditSubcategory(sub.id)} className="bg-green-600 px-2 py-1 rounded-md text-white cursor-pointer hover:bg-neutral-300 hover:text-green-600">
                                                             <Check size={16} />
                                                         </button>
-                                                        <button onClick={() => setEditingSubMap((prev) => ({ ...prev, [sub.id]: null }))} className="text-neutral-600">
+                                                        <button onClick={() => setEditingSubMap((prev) => ({ ...prev, [sub.id]: null }))} className="bg-red-800 px-2 py-1 rounded-md text-white cursor-pointer hover:bg-neutral-300 hover:text-red-800">
                                                             <XCircle size={16} />
                                                         </button>
                                                     </div>
@@ -166,13 +166,13 @@ function Categories() {
                                                                 setEditingSubMap((prev) => ({ ...prev, [sub.id]: sub.id }));
                                                                 setEditSubValueMap((prev) => ({ ...prev, [sub.id]: sub.name }));
                                                             }}
-                                                            className="text-secondary"
+                                                            className="cursor-pointer bg-secondary px-2 py-1 rounded-md hover:bg-neutral-300 hover:text-secondary"
                                                         >
                                                             <Pencil size={14} />
                                                         </button>
                                                         <button
                                                             onClick={() => handleDeleteSubcategory(sub.id)}
-                                                            className="text-red-600 hover:text-red-800"
+                                                            className="cursor-pointer text-white hover:bg-neutral-300 hover:text-red-800 bg-red-800 px-2 py-1 rounded-md"
                                                         >
                                                             <X size={14} />
                                                         </button>
