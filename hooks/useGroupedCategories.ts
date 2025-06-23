@@ -17,10 +17,15 @@ type Category = {
 const fetcher = async (): Promise<Category[]> => {
 	const { data, error } = await supabaseBrowser
 		.from('categories_with_subcategories')
-		.select('*');
+		.select('*')
+		.order('created_at', { ascending: true });
 
 	if (error) throw new Error(error.message);
-	return data as Category[];
+
+	return (data as Category[]).map((cat) => ({
+		...cat,
+		subcategories: cat.subcategories.sort((a, b) => a.name.localeCompare(b.name)),
+	}));
 };
 
 export function useGroupedCategories() {
@@ -31,18 +36,11 @@ export function useGroupedCategories() {
 		mutate,
 	} = useSWR<Category[]>('categories_with_subcategories', fetcher, {
 		revalidateOnFocus: true,
-		refreshInterval: 10000, // cada 10 segundos
+		refreshInterval: 10000,
 	});
 
-	const sortedData = data?.map((cat) => ({
-		...cat,
-		subcategories: [...cat.subcategories].sort((a, b) =>
-			a.name.localeCompare(b.name)
-		),
-	})) ?? [];
-
 	return {
-		data: sortedData,
+		data: data ?? [],
 		loading: isLoading,
 		error,
 		mutate,
