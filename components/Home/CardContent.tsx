@@ -83,7 +83,7 @@ export default function CardContent({ product }: Props) {
                             <BatteryCharging width={17} height={17} />
                         </div>
                     )}
-                    {product.color && (
+                    {product.color && product.color !== "Consultar" && (
                         <div className="text-xs font-semibold text-white my-2 px-2 py-1 bg-neutral-800 w-fit rounded-md flex items-center">
                             <h4>{product.color}</h4>
                         </div>
