@@ -107,7 +107,7 @@ export default function CardContent({ product }: Props) {
                     >
                         <button className="flex items-center bg-neutral-900 text-white text-xs px-4 py-2 rounded font-semibold hover:bg-neutral-600 cursor-pointer duration-300 ml-3">
                             <WhatsappIcon />
-                            <p className="ml-1">Consultar</p>
+                            <p className="ml-1">Comprar</p>
                         </button>
                     </Link>
 

@@ -9,10 +9,12 @@ type Props = {
 export default function ProductGallery({ imageMain,images = [], is_offer }: Props) {
     const [mainImage, setMainImage] = useState(imageMain);
 
+    const allImages = images.includes(imageMain) ? images : [imageMain, ...images];
+
     return (
         <div className="flex justify-center items-start p-10 md:w-1/2">
             <div className="flex flex-col gap-4 m-4">
-                {images?.map((img, i) => (
+                {allImages?.map((img, i) => (
                     <button key={i} onClick={() => setMainImage(img)}>
                         {
                             // eslint-disable-next-line @next/next/no-img-element

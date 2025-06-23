@@ -93,7 +93,7 @@ export default function Page() {
                         >
                             <button className="flex items-center bg-neutral-900 text-white text-xs px-20 py-3 rounded font-semibold my-6 hover:bg-neutral-600 duration-300 ml-3 cursor-pointer">
                                 <WhatsappIcon />
-                                <p className="ml-1">Consultar</p>
+                                <p className="ml-1">Comprar</p>
                             </button>
                         </Link>
 
