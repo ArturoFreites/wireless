@@ -5,8 +5,9 @@ import { supabaseBrowser } from "@/lib/superbase";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { UserCircle } from "lucide-react";
-import { useGroupedCategories } from "@/hooks/useGroupedCategories";
+import { useGroupedCategories} from "@/hooks/useGroupedCategories";
 import Link from "next/link";
+import { CategoryWithSub } from "@/types/CategoryWithSub";
 
 function NavDashboard() {
 	const [email, setEmail] = useState<string | null>(null);
@@ -75,7 +76,7 @@ function NavDashboard() {
 					>
 						<p className="text-xs">Todos</p>
 					</button>
-					{!loading && categories?.map((cat) => (
+					{!loading && categories?.map((cat: CategoryWithSub) => (
 						<div key={cat.id}>
 							<button
 								className="w-full text-left px-2 py-2 hover:bg-neutral-400 cursor-pointer font-medium"
@@ -83,7 +84,7 @@ function NavDashboard() {
 							>
 								<p className="text-xs">{cat.name}</p>
 							</button>
-							{expandedCategoryId === String(cat.id) && cat.subcategories.map(sub => (
+							{expandedCategoryId === String(cat.id) && cat.subcategories.map((sub: { id: string | number; name: string }) => (
 								<button
 									key={sub.id}
 									className="w-full text-left pl-6 pr-2 py-2 text-sm hover:bg-neutral-400 text-neutral-600"
@@ -95,21 +96,9 @@ function NavDashboard() {
 						</div>
 					))}
 					<div className="flex flex-col mt-4">
-						<Link href={"/banners"}
-							className="text-xs w-full px-2 py-2 hover:bg-neutral-300 cursor-pointer"
-						>
-							Banners
-						</Link>
-						<Link href={"/carrousels"}
-							className="text-xs w-full px-2 py-2 hover:bg-neutral-300 cursor-pointer"
-						>
-							Carrousels
-						</Link>
-						<Link href={"/categories"}
-							className="text-xs w-full px-2 py-2 hover:bg-neutral-300 cursor-pointer"
-						>
-							Categorias
-						</Link>
+						<Link href="/banners" className="text-xs w-full px-2 py-2 hover:bg-neutral-300 cursor-pointer">Banners</Link>
+						<Link href="/carrousels" className="text-xs w-full px-2 py-2 hover:bg-neutral-300 cursor-pointer">Carrousels</Link>
+						<Link href="/categories" className="text-xs w-full px-2 py-2 hover:bg-neutral-300 cursor-pointer">Categorias</Link>
 					</div>
 				</div>
 
@@ -144,15 +133,15 @@ function NavDashboard() {
 					>
 						<p className="text-xs">Todos</p>
 					</button>
-					{!loading && categories?.map((cat) => (
+					{!loading && categories?.map((cat: CategoryWithSub) => (
 						<div key={cat.id}>
 							<button
-								className="w-full text-left px-6 py-2 hover:bg-neutral-300 font-medium cursor-pointer "
+								className="w-full text-left px-6 py-2 hover:bg-neutral-300 font-medium cursor-pointer"
 								onClick={() => handleCategoryClick(String(cat.id), cat.name)}
 							>
 								<p className="text-xs">{cat.name}</p>
 							</button>
-							{expandedCategoryId === String(cat.id) && cat.subcategories.map(sub => (
+							{expandedCategoryId === String(cat.id) && cat.subcategories.map((sub: { id: string | number; name: string }) => (
 								<button
 									key={sub.id}
 									className="w-full text-left pl-10 pr-6 py-2 text-sm hover:bg-neutral-300 cursor-pointer"
@@ -164,21 +153,9 @@ function NavDashboard() {
 						</div>
 					))}
 					<div className="flex flex-col mt-4">
-						<Link href={"/banners"}
-							className="text-xs w-full px-6 py-2 hover:bg-neutral-300 cursor-pointer"
-						>
-							Banners
-						</Link>
-						<Link href={"/carrousels"}
-							className="text-xs w-full px-6 py-2 hover:bg-neutral-300 cursor-pointer"
-						>
-							Carrousels
-						</Link>
-						<Link href={"/categories"}
-							className="text-xs w-full px-6 py-2 hover:bg-neutral-300 cursor-pointer"
-						>
-							Categorias
-						</Link>
+						<Link href="/banners" className="text-xs w-full px-6 py-2 hover:bg-neutral-300 cursor-pointer">Banners</Link>
+						<Link href="/carrousels" className="text-xs w-full px-6 py-2 hover:bg-neutral-300 cursor-pointer">Carrousels</Link>
+						<Link href="/categories" className="text-xs w-full px-6 py-2 hover:bg-neutral-300 cursor-pointer">Categorias</Link>
 					</div>
 				</div>
 
