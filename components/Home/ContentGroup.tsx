@@ -31,10 +31,11 @@ function ContentGroup({ products, title, showSeeMoreButton }: Props) {
 
         for (const category of groupedCategories) {
             const match = category.subcategories.find(
-                sub => sub.name.toLowerCase() === title.toLowerCase()
+                sub => (sub.name ?? '').toLowerCase() === (title ?? '').toLowerCase()
             )
             if (match) return match.id
         }
+
 
         return null
     }, [title, groupedCategories])
