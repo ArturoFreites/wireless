@@ -44,7 +44,8 @@ export default function CartPage() {
                 <table className="w-full border-collapse text-sm">
                     <thead>
                         <tr className="bg-neutral-200 text-xs text-left">
-                            <th className="px-4 py-2">Producto</th>
+                            <th className="px-4 py-2"></th>
+                            <th className="px-4 py-2">Detalle</th>
                             <th className="px-4 py-2">Cantidad</th>
                             <th className="px-4 py-2">Precio USD</th>
                             <th className="px-4 py-2">Subtotal ARS</th>

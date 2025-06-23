@@ -5,7 +5,7 @@ import { motion, useAnimation, useInView } from 'framer-motion'
 import { useEffect, useRef } from 'react'
 import WhatsappIcon from '../Icon/WhatsappIcon'
 import { ProductWithRelations } from '@/types/ProductWithRelations'
-import { BatteryCharging, ShoppingBagIcon } from 'lucide-react'
+import { BatteryCharging, CircleMinus, CirclePlus, ShoppingBagIcon } from 'lucide-react'
 import { useCartStore } from '@/store/cart'
 
 type Props = { product: ProductWithRelations }
@@ -124,18 +124,20 @@ export default function CardContent({ product }: Props) {
                             title={isUsedInCart ? 'Quitar producto usado del carrito' : 'Agregar al carrito'}
                         >
                             <ShoppingBagIcon width={14} height={14} />
-                            <p className="text-xs ml-1 font-normal">{isUsedInCart ? 'Quitar' : '+'}</p>
+                            <p className="text-xs ml-1 font-normal">{isUsedInCart ? 'Quitar' : <CirclePlus width={16} height={16} />}</p>
                         </button>
                     ) : (
                         <div className="flex items-center gap-2 ml-3">
                             {quantity > 0 && (
-                                <div
-                                    className="flex items-center bg-neutral-800 text-white px-3 py-2 rounded font-semibold"
+                                <Link href={"/cart"}
+                                    className="flex items-center bg-neutral-800 text-white px-3 py-2 rounded font-semibold
+                                    hover:bg-primary
+                                    "
                                     title="En carrito"
                                 >
                                     <ShoppingBagIcon width={14} height={14} />
                                     <p className="text-xs ml-1 font-normal">{quantity}</p>
-                                </div>
+                                </Link>
                             )}
 
                             {quantity > 0 && (
@@ -144,7 +146,7 @@ export default function CardContent({ product }: Props) {
                                     className="flex items-center bg-neutral-500 text-white px-3 py-2 rounded font-semibold hover:bg-red-700 cursor-pointer"
                                     title="Quitar una unidad"
                                 >
-                                    <p className="text-xs font-normal">–</p>
+                                    <p className="text-xs font-normal"><CircleMinus width={16} height={16} /></p>
                                 </button>
                             )}
 
@@ -153,7 +155,7 @@ export default function CardContent({ product }: Props) {
                                 className="flex items-center bg-neutral-500 text-white px-3 py-2 rounded font-semibold hover:bg-primary/80 cursor-pointer"
                                 title="Agregar una unidad"
                             >
-                                <p className="text-xs font-normal">+</p>
+                                <p className="text-xs font-normal"> <CirclePlus width={16} height={16} /></p>
                             </button>
                         </div>
                     )}
