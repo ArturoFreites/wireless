@@ -32,12 +32,13 @@ export default function Page() {
             <h1 className="text-xl text-neutral-700 font-medium mb-6">{product.is_used && "Usado"}</h1>
             <div className='md:flex'>
                 <ProductGallery
+                    imageMain={product.main_image_url ?? ""}
                     images={product.image_urls ?? []}
                     is_offer={product.is_offer}
                 />
 
                 <div className="md:w-1/2">
-                    <p className='text-sm px-10 text-neutral-900 my-4'>
+                    <p className='text-sm px-10 text-neutral-900 my-4 whitespace-pre-line'>
                         {product.description}
                     </p>
                     <div className='px-10 flex flex-col gap-2 text-neutral-800 '>

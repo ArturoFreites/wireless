@@ -23,7 +23,6 @@ export function useUpdateWithUser() {
             .from(table)
             .update(values)
             .eq(idColumn, id)
-            .eq('user_id', user.id) // Verifica que el registro pertenezca al usuario
             .select()
             .single();
 

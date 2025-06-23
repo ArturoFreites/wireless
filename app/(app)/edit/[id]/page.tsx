@@ -15,6 +15,7 @@ import { validateImageDimensions } from "@/util/imageValidator";
 import { validateProductFields } from "@/util/validateProductFields";
 import { useUpdateWithUser } from "@/hooks/useUpdateWithUser";
 import { useImageUploader } from "@/hooks/useImageUploader";
+import { parseInputNumber } from "@/util/validateNumber";
 
 function EditPage() {
 	const { id } = useParams<{ id: string }>();
@@ -97,8 +98,8 @@ function EditPage() {
 		try {
 			await update("products", id, {
 				model,
-				price: parseFloat(price),
-				battery_percentage: parseFloat(battery),
+				price: parseInputNumber(price),
+				battery_percentage: parseInputNumber(battery),
 				storage,
 				color,
 				description,

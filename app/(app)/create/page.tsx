@@ -11,9 +11,10 @@ import SubcategoryDropdown from '@/components/SubcategoryDropdown';
 import { X } from 'lucide-react';
 import { useFeedbackStore } from '@/store/feedback';
 import { validateImageDimensions } from '@/util/imageValidator';
-import { useInsertWithUser } from '@/hooks/useInsertWithUser';
+import { useInsertWithUser } from '@/hooks/useInsert';
 import { validateProductFields } from '@/util/validateProductFields';
 import { useImageUploader } from '@/hooks/useImageUploader';
+import { parseInputNumber } from '@/util/validateNumber';
 
 function CreatePage() {
     const [model, setModel] = useState('');
@@ -78,8 +79,8 @@ function CreatePage() {
         try {
             await insert('products', {
                 model,
-                price: parseFloat(price),
-                battery_percentage: parseFloat(battery),
+                price: parseInputNumber(price),
+                battery_percentage: parseInputNumber(battery),
                 storage,
                 color,
                 description,

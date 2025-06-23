@@ -1,12 +1,13 @@
 import { useState } from "react";
 
 type Props = {
+    imageMain:string;
     images: string[];
     is_offer?: boolean | null;
 }
 
-export default function ProductGallery({ images = [], is_offer }: Props) {
-    const [mainImage, setMainImage] = useState(images[0] ?? '');
+export default function ProductGallery({ imageMain,images = [], is_offer }: Props) {
+    const [mainImage, setMainImage] = useState(imageMain);
 
     return (
         <div className="flex justify-center items-start p-10 md:w-1/2">
