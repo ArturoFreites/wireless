@@ -52,16 +52,15 @@ export default function Page() {
                             </div>
 
                         }
-                        {
-                            product.battery_percentage &&
-
-                            <div className="flex text-sm items-center">
-                                <h4 className='font-normal mr-1'>- Condición de batería</h4>
-                                <h4 className='font-semibold mr-1'>{product.battery_percentage}</h4>
-                                <BatteryCharging width={18} height={18} />
-                            </div>
-
-                        }
+                        {product.battery_percentage !== null &&
+                            product.battery_percentage !== undefined &&
+                            product.battery_percentage !== 0 && (
+                                <div className="flex text-sm items-center">
+                                    <h4 className='font-normal mr-1'>- Condición de batería</h4>
+                                    <h4 className='font-semibold mr-1'>{product.battery_percentage}%</h4>
+                                    <BatteryCharging width={18} height={18} />
+                                </div>
+                            )}
                         {
                             product.color &&
 

@@ -77,7 +77,7 @@ export default function CardContent({ product }: Props) {
                             <h4>{product.storage} GB</h4>
                         </div>
                     )}
-                    {product.battery_percentage != null && (
+                    {product.battery_percentage !== null && product.battery_percentage !== 0 && (
                         <div className="text-xs font-semibold text-white my-2 px-2 py-1 bg-neutral-800 w-fit rounded-md flex items-center">
                             <h4 className="mr-1">{product.battery_percentage}%</h4>
                             <BatteryCharging width={17} height={17} />
@@ -100,10 +100,10 @@ export default function CardContent({ product }: Props) {
                 }
                 <div className="flex justify-center items-center mt-5">
                     <Link
-                            href={href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center justify-between"
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-between"
                     >
                         <button className="flex items-center bg-neutral-900 text-white text-xs px-4 py-2 rounded font-semibold hover:bg-neutral-600 cursor-pointer duration-300 ml-3">
                             <WhatsappIcon />
