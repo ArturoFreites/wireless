@@ -3,7 +3,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-
+import { useSwipeable } from 'react-swipeable'
 import { supabaseBrowser } from '@/lib/superbase'
 
 export default function HomeCarrousel() {
@@ -47,32 +47,60 @@ export default function HomeCarrousel() {
 
     const activeImages = isMobile ? imagesMobile : images
 
+    const goTo = (i: number) => {
+        setIndex((i + activeImages.length) % activeImages.length)
+    }
+
     useEffect(() => {
         const timer = setInterval(() => {
-            setIndex((prev) => (prev + 1) % activeImages.length)
+            goTo(index + 1)
         }, 3000)
         return () => clearInterval(timer)
-    }, [activeImages.length])
+    }, [index, activeImages.length])
+
+    const handlers = useSwipeable({
+        onSwipedLeft: () => goTo(index + 1),
+        onSwipedRight: () => goTo(index - 1),
+        trackMouse: true,
+        touchEventOptions: { passive: false }
+    })
 
     return (
         <div className="w-full h-fit overflow-hidden relative md:pt-8">
             {loading ? (
                 <div className="w-full h-[80vh] bg-black animate-pulse" />
             ) : (
-                <div
-                    className="flex transition-transform duration-700 ease-in-out"
-                    style={{ transform: `translateX(-${index * 100}%)` }}
-                >
-                    {activeImages.map((src, i) => (
-                        <div key={i} className="w-full flex-shrink-0 h-[80vh] relative">
-                            <img
-                                src={src}
-                                alt={`Banner ${i}`}
-                                className="object-cover"
+                <>
+                    {/* Carrusel con swipe */}
+                    <div
+                        {...handlers}
+                        className="flex transition-transform duration-700 ease-in-out"
+                        style={{ transform: `translateX(-${index * 100}%)` }}
+                    >
+                        {activeImages.map((src, i) => (
+                            <div key={i} className="w-full flex-shrink-0 h-[80vh] relative">
+                                <img
+                                    src={src}
+                                    alt={`Banner ${i}`}
+                                    className="object-cover w-full h-full"
+                                />
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* Puntos indicadores */}
+                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                        {activeImages.map((_, i) => (
+                            <button
+                                key={i}
+                                onClick={() => goTo(i)}
+                                className={`w-3 h-3 rounded-full ${
+                                    i === index ? 'bg-white' : 'bg-white/50'
+                                } transition`}
                             />
-                        </div>
-                    ))}
-                </div>
+                        ))}
+                    </div>
+                </>
             )}
         </div>
     )
