@@ -37,10 +37,10 @@ export default function CartPage() {
         )
 
     return (
-        <div className="p-6 max-w-4xl mx-auto text-neutral-800 h-screen">
-            <h1 className="text-2xl font-bold mb-6 mt-10">Tu carrito</h1>
+        <div className="flex flex-col max-w-4xl mx-auto text-neutral-800 h-screen overflow-y-auto px-4 pb-32">
+            <h1 className="text-2xl font-bold mb-6 pt-20">Tu carrito</h1>
 
-            {/* Tabla con scroll */}
+            {/* Tabla desktop */}
             <div className="hidden md:block overflow-x-auto max-h-[60vh] overflow-y-auto rounded-md border border-neutral-200">
                 <table className="w-full border-collapse text-sm min-w-[700px]">
                     <thead className="sticky top-0 bg-neutral-200 z-10">
