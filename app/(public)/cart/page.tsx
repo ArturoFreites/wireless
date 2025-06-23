@@ -7,6 +7,7 @@ import { Trash2 } from 'lucide-react'
 import Link from 'next/link'
 import WhatsappIcon from '@/components/Icon/WhatsappIcon'
 import Skeleton from '@/components/Skeleton'
+import { useRouter } from 'next/navigation'
 
 export default function CartPage() {
     const { items, removeFromCart, clearCart } = useCartStore()
@@ -14,6 +15,8 @@ export default function CartPage() {
 
     const totalUSD = items.reduce((acc, item) => acc + (item.price ?? 0) * item.quantity, 0)
     const totalARS = totalUSD * (dollar?.venta ?? 0)
+
+    const router = useRouter()
 
     const message =
         'Hola! Quiero consultar por los siguientes productos:\n' +
@@ -57,7 +60,7 @@ export default function CartPage() {
                         {items.map((item) => {
                             const subtotalARS = (item.price ?? 0) * item.quantity * (dollar?.venta ?? 0)
                             return (
-                                <tr key={item.id} className="bg-white shadow-sm rounded-md text-xs">
+                                <tr onClick={() => router.push(`/product/${item.id}`)} key={item.id} className="bg-white shadow-sm rounded-md text-xs cursor-pointer hover:bg-neutral-100">
                                     <td className="px-4 py-4">
                                         <img className='w-20' src={item.main_image_url ?? " "} alt={item.model ?? "imagen"} />
                                     </td>
@@ -92,7 +95,7 @@ export default function CartPage() {
                 {items.map((item) => {
                     const subtotalARS = (item.price ?? 0) * item.quantity * (dollar?.venta ?? 0)
                     return (
-                        <div key={item.id} className="rounded-md shadow-2xl p-4 text-sm bg-neutral-50 text-neutral-800">
+                        <div  onClick={() => router.push(`/product/${item.id}`)} key={item.id} className="rounded-md shadow-2xl p-4 text-sm bg-neutral-50 text-neutral-800">
                             <div className="font-bold mb-4">
                                 {item.model} {item.storage && `${item.storage}GB`}
                             </div>

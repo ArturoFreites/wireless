@@ -30,7 +30,7 @@ export default function Page() {
 
     return (
         <section className="pt-12 md:pt-16 bg-white flex flex-col items-center">
-            <h1 className="text-3xl text-neutral-900 font-bold mb-6">{product.model}</h1>
+            <h1 className="text-3xl text-neutral-900 font-bold mb-6 px-10">{product.model}</h1>
             <h1 className="text-xl text-neutral-700 font-medium mb-6">{product.is_used && "Usado"}</h1>
             <div className='md:flex'>
                 <ProductGallery
