@@ -66,14 +66,14 @@ export default function CardContent({ product }: Props) {
                 <h3 className="text-xs truncate">{product.description}</h3>
                 <div className="flex gap-2">
                     {product.storage && (
-                        <div className="text-xs font-semibold text-white my-2 px-2 py-1 bg-primary w-fit rounded-md flex items-center">
+                        <div className="text-xs font-semibold text-white my-2 px-2 py-1 bg-primary rounded-md flex items-center">
                             <h4>{product.storage} GB</h4>
                         </div>
                     )}
                     {product.battery_percentage != null && (
                         <div className="text-xs font-semibold text-white my-2 px-2 py-1 bg-neutral-800 w-fit rounded-md flex items-center">
                             <h4 className="mr-1">{product.battery_percentage}%</h4>
-                            <BatteryCharging width={18} height={18} />
+                            <BatteryCharging width={17} height={17} />
                         </div>
                     )}
                     {product.color && (
