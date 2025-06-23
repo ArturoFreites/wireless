@@ -19,8 +19,10 @@ export default function Page() {
     if (!product) return <p className="pt-16 text-neutral-800">Producto no encontrado</p>;
 
     const message = `Hola! Quiero consultar por el modelo ${product.model ?? ""} ${product.storage ? `${product.storage}GB` : ""}` +
-        (product.color ? ` en color ${product.color}` : "") +
-        (product.battery_percentage != null ? ` con batería al ${product.battery_percentage}%` : "");
+        (product.color ? ` ${product.color!== null && product.color!== "Consultar" ? `en color ${product.color}` : ""}` : "") +
+        (product.battery_percentage !== null &&
+                            product.battery_percentage !== undefined &&
+                            product.battery_percentage !== 0 ? ` con batería al ${product.battery_percentage}%` : "");
 
 
     const href = `https://wa.me/17164932230?text=${encodeURIComponent(message)}`;
