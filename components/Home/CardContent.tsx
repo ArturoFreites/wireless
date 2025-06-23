@@ -24,6 +24,13 @@ export default function CardContent({ product }: Props) {
     const quantity = cartItem?.quantity ?? 0
     const isUsedInCart = product.is_used && !!cartItem
 
+    const message = `Hola! Quiero consultar por el modelo ${product.model ?? ""} ${product.storage ? `${product.storage}GB` : ""}` +
+        (product.color ? ` en color ${product.color}` : "") +
+        (product.battery_percentage != null ? ` con batería al ${product.battery_percentage}%` : "");
+
+
+    const href = `https://wa.me/17164932230?text=${encodeURIComponent(message)}`;
+
     const handleClick = () => {
         if (isUsedInCart) {
             removeFromCart(product.id)
@@ -93,10 +100,10 @@ export default function CardContent({ product }: Props) {
                 }
                 <div className="flex justify-center items-center mt-5">
                     <Link
-                        href="https://wa.me/17164932230"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex"
+                            href={href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center justify-between"
                     >
                         <button className="flex items-center bg-neutral-900 text-white text-xs px-4 py-2 rounded font-semibold hover:bg-neutral-600 cursor-pointer duration-300 ml-3">
                             <WhatsappIcon />
