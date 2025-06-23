@@ -47,7 +47,7 @@ export default function ProductsClient() {
                     value={sortOption}
                     onChange={(e) => setSortOption(e.target.value as typeof sortOption)}
                 >
-                    <option value="cheap">Más baratos (por defecto)</option>
+                    <option value="cheap">Más baratos</option>
                     <option value="expensive">Más caros</option>
                     <option value="newest">Más nuevos</option>
                 </select>
