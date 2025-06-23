@@ -22,6 +22,7 @@ export default function ProductsClient() {
             <ContentGroup
                 products={products}
                 title={categoryId ? products[0].category_name : products[0].subcategory_name}
+                showSeeMoreButton={false}
             />
         </article>
     );

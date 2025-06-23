@@ -15,6 +15,7 @@ function Content() {
                     key={subcategoryId}
                     title={group.subcategoryName}
                     products={group.products}
+                    showSeeMoreButton={true}
                 />
             ))}
         </section>
