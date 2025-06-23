@@ -41,7 +41,7 @@ function ContentGroup({ products, title, showSeeMoreButton }: Props) {
     }, [title, groupedCategories])
 
     return (
-        <div className="flex flex-col justify-center items-center text-neutral-900">
+        <div className="flex flex-col justify-center items-center text-neutral-900 mt-30">
             <motion.div
                 ref={ref}
                 initial={{ opacity: 0, y: 30 }}
@@ -68,7 +68,7 @@ function ContentGroup({ products, title, showSeeMoreButton }: Props) {
             {showSeeMoreButton && (
                 <Link
                     href={`/products?subcategoryId=${subcategoryId}`}
-                    className="mt-8 mb-30 px-6 py-2 bg-primary text-white text-sm font-semibold rounded hover:bg-primary/90 transition"
+                    className="mt-8 px-6 py-2 bg-primary text-white text-sm font-semibold rounded hover:bg-primary/90 transition"
                 >
                     Ver más
                 </Link>
