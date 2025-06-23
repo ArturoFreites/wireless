@@ -68,7 +68,7 @@ function ContentGroup({ products, title, showSeeMoreButton }: Props) {
             {showSeeMoreButton && (
                 <Link
                     href={`/products?subcategoryId=${subcategoryId}`}
-                    className="mt-8 px-6 py-2 bg-primary text-white text-sm font-semibold rounded hover:bg-primary/90 transition"
+                    className="mt-8 mb-30 px-6 py-2 bg-primary text-white text-sm font-semibold rounded hover:bg-primary/90 transition"
                 >
                     Ver más
                 </Link>
