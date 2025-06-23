@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 'use client'
 
 import { useCartStore } from '@/store/cart'
@@ -39,11 +40,11 @@ export default function CartPage() {
         <div className="p-6 max-w-4xl mx-auto text-neutral-800 h-screen">
             <h1 className="text-2xl font-bold mb-6 mt-10">Tu carrito</h1>
 
-            {/* Tabla en desktop */}
-            <div className="hidden md:block overflow-x-auto">
-                <table className="w-full border-collapse text-sm">
-                    <thead>
-                        <tr className="bg-neutral-200 text-xs text-left">
+            {/* Tabla con scroll */}
+            <div className="hidden md:block overflow-x-auto max-h-[60vh] overflow-y-auto rounded-md border border-neutral-200">
+                <table className="w-full border-collapse text-sm min-w-[700px]">
+                    <thead className="sticky top-0 bg-neutral-200 z-10">
+                        <tr className="text-xs text-left">
                             <th className="px-4 py-2"></th>
                             <th className="px-4 py-2">Detalle</th>
                             <th className="px-4 py-2">Cantidad</th>
@@ -56,12 +57,9 @@ export default function CartPage() {
                         {items.map((item) => {
                             const subtotalARS = (item.price ?? 0) * item.quantity * (dollar?.venta ?? 0)
                             return (
-                                <tr key={item.id} className="border-b text-xs">
-                                    <td>
-                                        {
-                                            // eslint-disable-next-line @next/next/no-img-element
-                                            <img className='w-20 h-20' src={item.main_image_url == null ? " " : item.main_image_url} alt={item.model == null ? "imagen" : item.model} />
-                                        }
+                                <tr key={item.id} className="bg-white shadow-sm rounded-md text-xs">
+                                    <td className="px-4 py-4">
+                                        <img className='w-20' src={item.main_image_url ?? " "} alt={item.model ?? "imagen"} />
                                     </td>
                                     <td className="px-4 py-3 font-semibold">
                                         {[item.model,
@@ -89,7 +87,7 @@ export default function CartPage() {
                 </table>
             </div>
 
-            {/* Tarjetas en mobile */}
+            {/* Mobile */}
             <div className="md:hidden space-y-4">
                 {items.map((item) => {
                     const subtotalARS = (item.price ?? 0) * item.quantity * (dollar?.venta ?? 0)
@@ -108,10 +106,7 @@ export default function CartPage() {
                                     <p>Subtotal ARS: ${subtotalARS.toLocaleString('es-AR', { minimumFractionDigits: 2 })}</p>
                                 </div>
                                 <div className='w-1/2 flex justify-center items-center'>
-                                    {
-                                        // eslint-disable-next-line @next/next/no-img-element
-                                        <img className='w-36 h-36' src={item.main_image_url == null ? " " : item.main_image_url} alt={item.model == null ? "imagen" : item.model} />
-                                    }
+                                    <img className='w-36 h-36' src={item.main_image_url ?? " "} alt={item.model ?? "imagen"} />
                                 </div>
                             </div>
                             <div className="mt-2 text-right">
@@ -138,7 +133,6 @@ export default function CartPage() {
             )}
 
             <div className="mt-6 gap-4 flex flex-col md:flex-row items-center justify-center">
-
                 <Link href={"/"}>
                     <button className="flex items-center bg-white text-primary underline px-6 py-2 rounded font-semibold hover:text-neutral-800 text-xs cursor-pointer">
                         <span className="ml-2">Seguir comprando</span>
