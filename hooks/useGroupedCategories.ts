@@ -1,35 +1,33 @@
-import { useMemo } from 'react';
-import { useSupabaseQuery } from './useSupabaseQuery';
+// hooks/useGroupedCategories.ts
+'use client'
+
+import useSWR from 'swr'
+import { supabaseBrowser } from '@/lib/superbase'
+
+const fetcher = async () => {
+    const { data, error } = await supabaseBrowser
+        .from('categories_with_subcategories')
+        .select('*')
+
+    if (error) throw new Error(error.message)
+    return data
+}
 
 export function useGroupedCategories() {
-	const filters = useMemo(() => ({}), []);
-	const select = useMemo(() => '*', []);
+    const { data, error, isLoading, mutate } = useSWR('categories_with_subcategories', fetcher, {
+        revalidateOnFocus: true,
+        refreshInterval: 10000, // cada 10 segundos
+    })
 
-	const { data, loading, error } = useSupabaseQuery<{
-		id: number;
-		name: string;
-		subcategories: { id: number; name: string }[];
-	}>(
-		'categories_with_subcategories',
-		filters,
-		1,
-		100,
-		select
-	);
+    const sortedData = data?.map((cat) => ({
+        ...cat,
+        subcategories: [...cat.subcategories].sort((a, b) => a.name.localeCompare(b.name)),
+    })) ?? []
 
-	const sortedData = useMemo(() => {
-		if (!data) return [];
-		return data.map((cat) => ({
-			...cat,
-			subcategories: [...cat.subcategories].sort((a, b) =>
-				a.name.localeCompare(b.name)
-			),
-		}));
-	}, [data]);
-
-	return {
-		data: sortedData,
-		loading,
-		error,
-	};
+    return {
+        data: sortedData,
+        loading: isLoading,
+        error,
+        mutate,
+    }
 }
