@@ -1,4 +1,3 @@
-// hooks/useGroupedProducts.ts
 import { useEffect, useState } from "react";
 import { ProductWithRelations } from "@/types/ProductWithRelations";
 import { supabaseBrowser } from "@/lib/superbase";
@@ -17,6 +16,7 @@ export function useGroupedProducts(limitPerSubcategory: number = 6) {
             const { data: all, error } = await supabaseBrowser
                 .from("products_with_relations")
                 .select("*")
+                .eq("status", "active")
                 .order("created_at", { ascending: false });
 
             if (error) {

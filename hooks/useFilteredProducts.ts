@@ -9,7 +9,7 @@ export function useFilteredProducts(
     subcategoryId?: string,
     sortBy?: string,
     sortOrder: 'asc' | 'desc' = 'asc',
-    status?: string | null
+    status: string | null = "active"
 ) {
     const filters = useMemo(() => {
         const baseFilters: Record<string, string> = {};
