@@ -1,51 +1,64 @@
-import { useEffect, useState } from "react";
-import { ProductWithRelations } from "@/types/ProductWithRelations";
-import { supabaseBrowser } from "@/lib/superbase";
+import { useEffect, useState } from 'react'
+import { supabaseBrowser } from '@/lib/superbase'
+import { ProductWithRelations } from '@/types/ProductWithRelations'
 
-type GroupedProducts = Record<string, {
-    subcategoryName: string;
-    products: ProductWithRelations[];
-}>;
+type Grouped = {
+	subcategoryName: string
+	products: ProductWithRelations[]
+}
 
-export function useGroupedProducts(limitPerSubcategory: number = 6) {
-    const [data, setData] = useState<GroupedProducts>({});
-    const [loading, setLoading] = useState(true);
+export function useGroupedProducts(limit: number = 6) {
+	const [data, setData] = useState<Record<string, Grouped>>({})
+	const [loading, setLoading] = useState(true)
 
-    useEffect(() => {
-        async function fetch() {
-            const { data: all, error } = await supabaseBrowser
-                .from("products_with_relations")
-                .select("*")
-                .eq("status", "active")
-                .order("created_at", { ascending: false });
+	useEffect(() => {
+		const fetchData = async () => {
+			setLoading(true)
 
-            if (error) {
-                console.error(error);
-                setLoading(false);
-                return;
-            }
+			// 1. Traemos subcategorías destacadas con nombre y posición
+			const { data: featured, error: err1 } = await supabaseBrowser
+				.from('featured_subcategories_with_name')
+				.select('subcategory_id, subcategory_name, position')
+				.order('position')
 
-            const grouped: GroupedProducts = {};
+			if (err1 || !featured) {
+				setLoading(false)
+				return
+			}
 
-            all.forEach((product: ProductWithRelations) => {
-                const subId = product.subcategory_id ?? "desconocido";
-                if (!grouped[subId]) {
-                    grouped[subId] = {
-                        subcategoryName: product.subcategory_name ?? "Sin nombre",
-                        products: [],
-                    };
-                }
-                if (grouped[subId].products.length < limitPerSubcategory) {
-                    grouped[subId].products.push(product);
-                }
-            });
+			const subcategoryIds = featured.map(f => f.subcategory_id)
 
-            setData(grouped);
-            setLoading(false);
-        }
+			// 2. Traemos todos los productos de esas subcategorías
+			const { data: allProducts, error: err2 } = await supabaseBrowser
+				.from('products_with_relations') // O "products" si es tabla directa
+				.select('*')
+				.in('subcategory_id', subcategoryIds)
 
-        fetch();
-    }, [limitPerSubcategory]);
+			if (err2 || !allProducts) {
+				setLoading(false)
+				return
+			}
 
-    return { data, loading };
+			// 3. Agrupamos y limitamos
+			const grouped: Record<string, Grouped> = {}
+
+			for (const sub of featured) {
+				const groupProducts = allProducts.filter(p => p.subcategory_id === sub.subcategory_id)
+
+				if (groupProducts.length > 0) {
+					grouped[sub.subcategory_id] = {
+						subcategoryName: sub.subcategory_name,
+						products: groupProducts.slice(0, limit),
+					}
+				}
+			}
+
+			setData(grouped)
+			setLoading(false)
+		}
+
+		fetchData()
+	}, [limit])
+
+	return { data, loading }
 }

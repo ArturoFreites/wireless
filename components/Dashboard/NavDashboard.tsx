@@ -99,6 +99,7 @@ function NavDashboard() {
 						<Link href="/banners" className="text-xs w-full px-2 py-2 hover:bg-neutral-300 cursor-pointer">Banners</Link>
 						<Link href="/carrousels" className="text-xs w-full px-2 py-2 hover:bg-neutral-300 cursor-pointer">Carrousels</Link>
 						<Link href="/categories" className="text-xs w-full px-2 py-2 hover:bg-neutral-300 cursor-pointer">Categorias</Link>
+						<Link href="/order" className="text-xs w-full px-2 py-2 hover:bg-neutral-300 cursor-pointer">Orden Home</Link>
 					</div>
 				</div>
 
@@ -156,6 +157,7 @@ function NavDashboard() {
 						<Link href="/banners" className="text-xs w-full px-6 py-2 hover:bg-neutral-300 cursor-pointer">Banners</Link>
 						<Link href="/carrousels" className="text-xs w-full px-6 py-2 hover:bg-neutral-300 cursor-pointer">Carrousels</Link>
 						<Link href="/categories" className="text-xs w-full px-6 py-2 hover:bg-neutral-300 cursor-pointer">Categorias</Link>
+						<Link href="/order" className="text-xs w-full px-6 py-2 hover:bg-neutral-300 cursor-pointer">Orden Home</Link>
 					</div>
 				</div>
 
