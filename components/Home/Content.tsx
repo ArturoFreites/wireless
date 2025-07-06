@@ -10,6 +10,8 @@ function Content() {
 
     return (
         <section className="bg-white">
+
+            <p>Busca el producto</p>
             {Object.entries(data).map(([subcategoryId, group]) => (
                 <ContentGroup
                     key={subcategoryId}

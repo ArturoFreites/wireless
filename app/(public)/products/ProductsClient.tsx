@@ -41,9 +41,9 @@ export default function ProductsClient() {
 
     return (
         <article className="h-full">
-            <div className="flex justify-center md:justify-end mb-4 pr-4 pt-20 md:mr-20">
+            <div className="flex justify-center md:justify-end pr-4 pt-20 md:mr-20">
                 <select
-                    className="rounded-md text-sm px-3 py-2 text-neutral-800"
+                    className="rounded-md text-sm px-3 py-2 font-semibold text-neutral-800 bg-neutral-100"
                     value={sortOption}
                     onChange={(e) => setSortOption(e.target.value as typeof sortOption)}
                 >
