@@ -41,7 +41,7 @@ function ContentGroup({ products, title, showSeeMoreButton }: Props) {
     }, [title, groupedCategories])
 
     return (
-        <div className="flex flex-col justify-center items-center text-neutral-900 mt-30">
+        <div className="flex flex-col justify-center items-center text-neutral-900 mt-30 pb-20">
             <motion.div
                 ref={ref}
                 initial={{ opacity: 0, y: 30 }}
