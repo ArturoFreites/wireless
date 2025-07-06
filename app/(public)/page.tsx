@@ -5,7 +5,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 export default function Home() {
 
   return (
-    <section className="flex flex-col ">
+    <section className="flex flex-col pb-20">
       <SpeedInsights/>
       <HomeCarrousel/>
       <Content/>
