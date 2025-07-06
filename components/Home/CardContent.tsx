@@ -7,6 +7,7 @@ import WhatsappIcon from '../Icon/WhatsappIcon'
 import { ProductWithRelations } from '@/types/ProductWithRelations'
 import { BatteryCharging, CircleMinus, CirclePlus, ShoppingBagIcon } from 'lucide-react'
 import { useCartStore } from '@/store/cart'
+import Image from 'next/image'
 
 type Props = { product: ProductWithRelations }
 
@@ -55,11 +56,13 @@ export default function CardContent({ product }: Props) {
         >
             <div className="relative">
                 <Link href={`/product/${product.id}`} className='w-full flex justify-center items-center'>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
+                    <Image
                         src={product?.main_image_url || ''}
                         alt={product?.model || ''}
                         className="w-full h-auto hover:scale-95 duration-200 cursor-pointer rounded-md mt-4 lg:w-70"
+                        width={300}
+                        height={400}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                     />
                 </Link>
 

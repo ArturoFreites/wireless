@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useState } from "react";
 
 type Props = {
@@ -17,8 +18,7 @@ export default function ProductGallery({ imageMain,images = [], is_offer }: Prop
                 {allImages?.map((img, i) => (
                     <button key={i} onClick={() => setMainImage(img)}>
                         {
-                            // eslint-disable-next-line @next/next/no-img-element
-                            <img
+                            <Image
                                 src={img}
                                 alt={`Miniatura ${i}`}
                                 width={60}
@@ -32,8 +32,7 @@ export default function ProductGallery({ imageMain,images = [], is_offer }: Prop
 
             <div className="relative flex">
                 {
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
+                    <Image
                         src={mainImage}
                         alt="Imagen principal"
                         width={250}

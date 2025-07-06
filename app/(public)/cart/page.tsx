@@ -77,10 +77,13 @@ export default function CartPage() {
                                     <td className="px-4 py-3">${subtotalARS.toLocaleString('es-AR', { minimumFractionDigits: 2 })} ARS</td>
                                     <td className="px-4 py-3 text-center">
                                         <button
-                                            onClick={() => removeFromCart(item.id)}
-                                            className="text-red-500 hover:text-red-800"
+                                            onClick={(event) => {
+                                                event.stopPropagation()
+                                                removeFromCart(item.id)
+                                            }}
+                                            className="text-red-500 text-xs font-semibold hover:text-red-700"
                                         >
-                                            <Trash2 size={16} />
+                                            <Trash2 width={18} height={18} />
                                         </button>
                                     </td>
                                 </tr>
@@ -95,7 +98,7 @@ export default function CartPage() {
                 {items.map((item) => {
                     const subtotalARS = (item.price ?? 0) * item.quantity * (dollar?.venta ?? 0)
                     return (
-                        <div  onClick={() => router.push(`/product/${item.id}`)} key={item.id} className="rounded-md shadow-2xl p-4 text-sm bg-neutral-50 text-neutral-800">
+                        <div onClick={() => router.push(`/product/${item.id}`)} key={item.id} className="rounded-md shadow-2xl p-4 text-sm bg-neutral-50 text-neutral-800">
                             <div className="font-bold mb-4">
                                 {item.model} {item.storage && `${item.storage}GB`}
                             </div>
