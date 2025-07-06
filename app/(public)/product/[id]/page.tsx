@@ -1,12 +1,16 @@
 import { Metadata } from 'next'
-import { fetchProductById } from '@/lib/apit'
 import ProductClient from './ProductClient'
+import { fetchProductById } from '@/lib/apit'
 
 type Props = {
-	params: { id: string }
+	params: {
+		id: string
+	}
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(
+	{ params }: Props
+): Promise<Metadata> {
 	const product = await fetchProductById(params.id)
 
 	return {
@@ -18,7 +22,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 			url: `https://www.wireless.ar/product/${params.id}`,
 			images: [
 				{
-					url: product.main_image_url ?? 'https://res.cloudinary.com/diodsiaxm/image/upload/v1751815144/wireless_hi5bnv.webp',
+					url:
+						product.main_image_url ??
+						'https://res.cloudinary.com/diodsiaxm/image/upload/v1751815144/wireless_hi5bnv.webp',
 					width: 800,
 					height: 600,
 				},

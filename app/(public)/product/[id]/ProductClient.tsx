@@ -9,7 +9,11 @@ import ProductPageSkeleton from '@/components/Skeleton/ProductPageSkeleton';
 import ProductGallery from '@/components/Product/ProductGallery';
 import { useCartStore } from '@/store/cart';
 
-export default function ProductClient({ id }: { id: string }) {
+type Props = {
+    id: string
+}
+
+export default function ProductClient({ id }: Props) {
 
     const { data: product, loading, error } = useProductById(id);
 
