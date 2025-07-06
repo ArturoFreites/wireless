@@ -26,8 +26,8 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 			images: [
 				{
 					url: product.main_image_url ?? 'https://res.cloudinary.com/diodsiaxm/image/upload/v1751815144/wireless_hi5bnv.webp',
-					width: 800,
-					height: 600,
+					width: 1200,
+					height: 630,
 				},
 			],
 		},
