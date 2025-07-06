@@ -1,8 +1,12 @@
 import { Metadata } from 'next'
-import ProductClient from './ProductClient'
 import { fetchProductById } from '@/lib/apit'
+import ProductClient from './ProductClient'
 
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+type Props = {
+	params: { id: string }
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	const product = await fetchProductById(params.id)
 
 	return {
@@ -23,6 +27,6 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
 	}
 }
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function Page({ params }: Props) {
 	return <ProductClient id={params.id} />
 }
