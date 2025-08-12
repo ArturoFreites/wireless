@@ -1,5 +1,6 @@
 import Link from "next/link";
 import InstagramIcon from "../Icon/InstagramIcon";
+import TikTokIcon from "../Icon/TikTokIcon";
 
 function SocialMediaFooter() {
     return (
@@ -10,6 +11,9 @@ function SocialMediaFooter() {
             <p className="text-neutral-800 font-semibold">Nuestas Redes</p>
             <Link href={"https://www.instagram.com/wireless.ar/"} className="mt-3 mb-6">
                 <InstagramIcon width={30} height={30} className="cursor-pointer hover:fill-primary duration-300"/>
+            </Link>
+            <Link href={"https://www.tiktok.com/@wireless.ar"} className="mt-3 mb-6">
+                <TikTokIcon width={30} height={30} className="cursor-pointer hover:fill-primary duration-300"/>
             </Link>
         </div>
     );
