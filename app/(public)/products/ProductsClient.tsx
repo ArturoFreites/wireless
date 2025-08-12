@@ -9,10 +9,10 @@ import ContentGroup from '@/components/Home/ContentGroup';
 
 export default function ProductsClient() {
     const searchParams = useSearchParams();
-    const categoryId = searchParams.get('categoryId') ?? undefined;
-    const subcategoryId = searchParams.get('subcategoryId') ?? undefined;
+    const category = searchParams.get('category') ?? undefined;
+    const subcategory = searchParams.get('subcategory') ?? undefined;
 
-    const { data: products, loading, error } = useFilteredProducts(categoryId, subcategoryId);
+    const { data: products, loading, error } = useFilteredProducts(category, subcategory);
 
     const [sortOption, setSortOption] = useState<'cheap' | 'expensive' | 'newest' | 'default'>('cheap');
 
@@ -55,7 +55,7 @@ export default function ProductsClient() {
 
             <ContentGroup
                 products={sortedProducts}
-                title={categoryId ? products[0].category_name : products[0].subcategory_name}
+                title={category ? products[0].category_name : products[0].subcategory_name}
                 showSeeMoreButton={false}
             />
         </article>

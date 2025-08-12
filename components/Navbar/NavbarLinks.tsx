@@ -48,7 +48,7 @@ function NavBarLinks({ links, hidden, onClickLink }: Props) {
                         onClick={() => handleCategoryClick(link.id, hasValidSubcategories)}
                     >
                         <Link
-                            href={`/products?categoryId=${link.id}`}
+                            href={`/products?category=${link.name}`}
                             onClick={() => {
                                 if (!isMobile || !hasValidSubcategories) {
                                     onClickLink?.();
@@ -65,7 +65,7 @@ function NavBarLinks({ links, hidden, onClickLink }: Props) {
                                     .filter((sc) => sc.id && sc.name)
                                     .map((sub) => (
                                         <Link
-                                            href={`/products?subcategoryId=${sub.id}`}
+                                            href={`/products?subcategory=${sub.name}`}
                                             key={sub.id}
                                             onClick={onClickLink}
                                         >
@@ -84,7 +84,7 @@ function NavBarLinks({ links, hidden, onClickLink }: Props) {
                                     .filter((sc) => sc.id && sc.name)
                                     .map((sub) => (
                                         <Link
-                                            href={`/products?subcategoryId=${sub.id}`}
+                                            href={`/products?subcategory=${sub.name}`}
                                             key={sub.id}
                                             onClick={onClickLink}
                                         >

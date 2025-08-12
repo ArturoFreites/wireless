@@ -14,8 +14,8 @@ export function useFilteredProducts(
     const filters = useMemo(() => {
         const baseFilters: Record<string, string> = {};
 
-        if (subcategoryId) baseFilters.subcategory_id = subcategoryId;
-        else if (categoryId) baseFilters.category_id = categoryId;
+        if (subcategoryId) baseFilters.subcategory_name = subcategoryId;
+        else if (categoryId) baseFilters.category_name = categoryId;
 
         if (status) baseFilters.status = status;
 

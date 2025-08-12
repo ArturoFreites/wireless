@@ -26,7 +26,7 @@ function NavBar() {
                             width={35}
                             height={35}
                         />
-                        <p className="pl-1 text-sm font-semibold text-neutral-700">WIRELESS.AR</p>
+                        <p className="pl-1 text-xs font-bold text-neutral-700">WIRELESS TECH</p>
                     </Link>
 
                     <NavbarMobile
