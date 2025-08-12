@@ -1,5 +1,6 @@
 import AddressFooter from "./Footer/AddressFooter";
 import SocialMediaFooter from "./Footer/SocialMediaFooter";
+import EmailIcon from "./Icon/EmailIcon";
 
 function Footer() {
     return (
@@ -7,6 +8,12 @@ function Footer() {
             <div className="w-full md:flex">
                 <SocialMediaFooter/>
                 <AddressFooter/>
+            </div>
+            <div className="flex text-neutral-600 items-center justify-center py-4 font-medium text-xs">
+                <EmailIcon width={20} height={20}/>
+                <p className="ml-2">
+                    wirelesstech.ar@gmail.com
+                </p>
             </div>
             <div className="flex flex-col text-neutral-800 items-center pt-12 pb-6 font-semibold text-xs">
                 <p>
