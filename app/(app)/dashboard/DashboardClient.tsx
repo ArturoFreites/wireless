@@ -14,8 +14,8 @@ function DashboardClient() {
     const router = useRouter();
     const searchParams = useSearchParams();
 
-    const categoryId = searchParams.get("category_id") || "";
-    const subcategoryId = searchParams.get("subcategory_id") || "";
+    const categoryId = searchParams.get("category") || "";
+    const subcategoryId = searchParams.get("subcategory") || "";
 
     const [sortBy, setSortBy] = useState<string>('model');
     const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
@@ -32,8 +32,8 @@ function DashboardClient() {
     const { update } = useUpdateWithUser();
     const setFeedback = useFeedbackStore((state) => state.setFeedback);
 
-    const currentLabel = searchParams.get("subcategory_name") ||
-        searchParams.get("category_name") ||
+    const currentLabel = searchParams.get("subcategory") ||
+        searchParams.get("category") ||
         "Todos los productos";
 
     const toggleSort = useCallback((column: string) => {

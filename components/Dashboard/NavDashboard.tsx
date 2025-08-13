@@ -30,12 +30,12 @@ function NavDashboard() {
 
 	const handleCategoryClick = (id: string, name: string) => {
 		setExpandedCategoryId(expandedCategoryId === id ? null : id);
-		router.push(`/dashboard?category_id=${id}&category_name=${encodeURIComponent(name)}`);
+		router.push(`/dashboard?category=${encodeURIComponent(name)}`);
 		setOpen(false);
 	};
 
-	const handleSubcategoryClick = (catId: string, subId: string, subName: string) => {
-		router.push(`/dashboard?category_id=${catId}&subcategory_id=${subId}&subcategory_name=${encodeURIComponent(subName)}`);
+	const handleSubcategoryClick = (catName: string, subName: string) => {
+		router.push(`/dashboard?category=${encodeURIComponent(catName)}&subcategory=${encodeURIComponent(subName)}`);
 		setOpen(false);
 	};
 
@@ -88,7 +88,7 @@ function NavDashboard() {
 								<button
 									key={sub.id}
 									className="w-full text-left pl-6 pr-2 py-2 text-sm hover:bg-neutral-400 text-neutral-600"
-									onClick={() => handleSubcategoryClick(String(cat.id), String(sub.id), sub.name)}
+									onClick={() => handleSubcategoryClick(String(cat.name), sub.name)}
 								>
 									<p className="text-xs">{sub.name}</p>
 								</button>
@@ -146,7 +146,7 @@ function NavDashboard() {
 								<button
 									key={sub.id}
 									className="w-full text-left pl-10 pr-6 py-2 text-sm hover:bg-neutral-300 cursor-pointer"
-									onClick={() => handleSubcategoryClick(String(cat.id), String(sub.id), sub.name)}
+									onClick={() => handleSubcategoryClick(String(cat.name),sub.name)}
 								>
 									<p className="text-xs">{sub.name}</p>
 								</button>
